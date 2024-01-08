@@ -151,6 +151,6 @@
     "href": "index.html",
     "title": "Welcome",
     "section": "",
-    "text": "Welcome\nWelcome to FASS512, Quantitative Research Methods for 2023/2024. In the sidebar you will see each week’s worksheets. This is a one-stop shop for all your worksheets, and each week the previous content will have answers incorporated into the content for easier revision.\nSee Moodle for course slides and recordings.\nHelpful links:\n\nhttps://posit.co/download/rstudio-desktop/\nhttps://style.tidyverse.org/pipes.html\nhttps://www.r-project.org/help.html#:~:text=Stack%20Overflow,-Stack%20Overflow%20is&text=Topics%20are%20tagged%2C%20and%20%E2%80%9Cr,%2Fquestions%2Ftagged%2Fr.\nAnything you think should be here? Let me know!\n\nContent written by Matthew Ivory, built on Patrick Rebuschat’s previous content; website developed and maintained by Matthew Ivory.\n\n\n\n\n Back to top"
+    "text": "Welcome\nWelcome to FASS512, Quantitative Research Methods for 2023/2024. In the sidebar you will see each week’s worksheets. This is a one-stop shop for all your worksheets, and each week the previous content will have answers incorporated into the content for easier revision.\nSee Moodle for course slides and recordings.\nHelpful links:\n\nInstalling R and RStudio\nThe Tidyverse Style guide\nHow to search for help on the internet\nAnything you think should be here? Let me know!\n\nContent written by Matthew Ivory, built on Patrick Rebuschat’s previous content; website developed and maintained by Matthew Ivory.\n\n\n\n\n Back to top"
   }
 ]

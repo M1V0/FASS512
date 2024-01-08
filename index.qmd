@@ -17,9 +17,9 @@ See Moodle for course slides and recordings.
 
 Helpful links:
 
--   [https://posit.co/download/rstudio-desktop/](Installing R and RStudio)
--   [https://style.tidyverse.org/pipes.html](The Tidyverse Style guide)
--   [https://www.r-project.org/help.html#:~:text=Stack%20Overflow,-Stack%20Overflow%20is&text=Topics%20are%20tagged%2C%20and%20%E2%80%9Cr,%2Fquestions%2Ftagged%2Fr.](How to search for help on the internet)
+- [Installing R and RStudio](https://posit.co/download/rstudio-desktop/)
+- [The Tidyverse Style guide](https://style.tidyverse.org/pipes.html)
+- [How to search for help on the internet](https://www.r-project.org/help.html#:~:text=Stack%20Overflow,-Stack%20Overflow%20is&text=Topics%20are%20tagged%2C%20and%20%E2%80%9Cr,%2Fquestions%2Ftagged%2Fr.)
 - Anything you think should be here? Let me know!
 
 Content written by Matthew Ivory, built on Patrick Rebuschat's previous content; website developed and maintained by Matthew Ivory.
