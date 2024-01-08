@@ -315,8 +315,9 @@ What happens if you don't use the `c()` function? Try it out and see what happen
 
 ```{r}
 #| eval: true
+#| error: true
 
-numbers[c(4,2,1)]
+numbers[4,2,1]
 ```
 
 You get an error! Now, in this particular situation, the error message isn't the most helpful, but it is important to get familiar with errors (you will be seeing a lot of them in the next 10 weeks!), and note that they are useful. R cannot carry out operations that don't make sense, and as it happens, the above command is telling it to look for the item in three dimensions (imagine a cube made of vectors). When we get errors it is useful to check our code to see what might be wrong. 

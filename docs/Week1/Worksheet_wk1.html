@@ -507,9 +507,9 @@ Why is it different?
 <div class="callout-body-container callout-body">
 <p>What happens if you don’t use the <code>c()</code> function? Try it out and see what happens.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>numbers[<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 7 3 2</code></pre>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>numbers[<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in numbers[4, 2, 1]: incorrect number of dimensions</code></pre>
 </div>
 </div>
 <p>You get an error! Now, in this particular situation, the error message isn’t the most helpful, but it is important to get familiar with errors (you will be seeing a lot of them in the next 10 weeks!), and note that they are useful. R cannot carry out operations that don’t make sense, and as it happens, the above command is telling it to look for the item in three dimensions (imagine a cube made of vectors). When we get errors it is useful to check our code to see what might be wrong.</p>
