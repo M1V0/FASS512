@@ -6,12 +6,12 @@ execute:
   freeze: auto  # re-render only when source changes
   
 website:
-  title: "Statistics for Psychologists"
+  title: "Statistics for Social Scientists"
   favicon: "Images/favicon.png"
   page-navigation: true
   back-to-top-navigation: true
     
-  repo-url: https://github.com/M1V0/Statistics_for_PSYC
+  repo-url: https://github.com/M1V0/FASS512
   repo-actions: [edit, issue]
   
   navbar:
@@ -30,10 +30,10 @@ website:
     style: "floating"
     
     contents:
-      - section: "PSYC121"
+      - section: "Week 1"
         contents: Week1/*
         
-      - section: "PSYC122"
+      - section: "Week 2"
         contents: Week2/*
         
 #     - section: "PSYC214"

@@ -1,5 +1,5 @@
 ---
-title: "FASS512 - Week 2"
+title: "Week 2"
 author: "Matthew Ivory"
 format: html
 ---

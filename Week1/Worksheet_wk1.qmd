@@ -1,5 +1,5 @@
 ---
-title: "FASS512 - Week 1"
+title: "Week 1"
 author: "Matthew Ivory"
 format: html
 ---
@@ -65,7 +65,7 @@ Here, it is recommended not to leave a space between the minus sign - and the va
 
 Please try out all of the commands on your computer now.
 
-1. This is hwo we do addition
+1. This is how we do addition
 
 ```{r}
 10 + 10
