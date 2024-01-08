@@ -1,5 +1,5 @@
 ---
-title: "Introduction to quantitative research methods using R"
+title: "1. Introduction to quantitative research methods using R"
 author: "Matthew Ivory"
 format: html
 ---

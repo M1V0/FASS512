@@ -25,13 +25,13 @@ website:
         file: Week2/Worksheet_wk2.qmd
 
   sidebar:
+  
     collapse-level: 1
     style: "floating"
+    
     contents:
-      - section: ""
-        contents:
-          - Week1/Worksheet_wk1.qmd
-          - Week2/Worksheet_wk2.qmd
+      - Week1/Worksheet_wk1.qmd
+      - Week2/Worksheet_wk2.qmd
 
 #     - section: "PSYC214"
 #       contents: PSYC214/*

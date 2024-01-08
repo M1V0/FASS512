@@ -1,5 +1,5 @@
 ---
-title: "Data management and data wrangling"
+title: "2. Data management and data wrangling"
 author: "Matthew Ivory"
 format: html
 ---
