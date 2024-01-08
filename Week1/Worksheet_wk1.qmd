@@ -1,5 +1,5 @@
 ---
-title: "Week 1"
+title: "Introduction to quantitative research methods using R"
 author: "Matthew Ivory"
 format: html
 ---

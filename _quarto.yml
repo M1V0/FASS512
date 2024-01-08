@@ -25,17 +25,14 @@ website:
         file: Week2/Worksheet_wk2.qmd
 
   sidebar:
-  
     collapse-level: 1
     style: "floating"
-    
     contents:
-      - section: "Week 1"
-        contents: Week1/*
-        
-      - section: "Week 2"
-        contents: Week2/*
-        
+      - section: ""
+        contents:
+          - Week1/Worksheet_wk1.qmd
+          - Week2/Worksheet_wk2.qmd
+
 #     - section: "PSYC214"
 #       contents: PSYC214/*
 #       

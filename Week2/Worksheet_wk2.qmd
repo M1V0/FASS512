@@ -1,5 +1,5 @@
 ---
-title: "Week 2"
+title: "Data management and data wrangling"
 author: "Matthew Ivory"
 format: html
 ---
