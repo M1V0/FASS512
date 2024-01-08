@@ -612,10 +612,10 @@ In each of the cases above, RStudio will open the help page for the function in 
 
 The following table displays the scores of students in two foreign language exams, one administered at the beginning of term, the other at the end of term.
 
-Create a data frame called language_exams with the information provided in the table, then answer the questions below using R.
+Create a data frame called language_exams with the information provided in the table, then answer the questions below using R. To save you the headache of tediously typing it all out, you can highlight and paste the code below as-is into your own script.
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: false
 
 language_exams <- data.frame(
