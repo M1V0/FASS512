@@ -1,11 +1,14 @@
 ---
-title: "FASS512"
+title: "Statistics for Psychologists"
+page-layout: article
+anchor-sections: false
+image: "Images/icon.png"
+css: index.css
+filters: [remove_title.lua]
 ---
 
-This is a Quarto website.
+![](Images/LUPsychology.svg){fig-alt="University Logo" fig-align="center"}
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+# Welcome
 
-```{r}
-1 + 1
-```
+Welcome to Lancaster University's Department of Psychology **2022/2023** modules on Statistics for Psychologists. In the sidebar, you will find a complete list of all the statistics modules that are currently offered. This is your one-stop shop for all the lab materials you need for working with R and statistics.

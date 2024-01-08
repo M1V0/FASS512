@@ -1,19 +1,78 @@
 project:
   type: website
-
+  output-dir: docs
+  
+execute:
+  freeze: auto  # re-render only when source changes
+  
 website:
-  title: "FASS512"
+  title: "Statistics for Psychologists"
+  favicon: "Images/favicon.png"
+  page-navigation: true
+  back-to-top-navigation: true
+    
+  repo-url: https://github.com/M1V0/Statistics_for_PSYC
+  repo-actions: [edit, issue]
+  
   navbar:
+    #logo: "Images/icon.png"
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      #- text: Home
+      #  file: index.qmd
+      - text: Week 1
+        file: Week1/Worksheet_wk1.qmd
+      - text: Week 2
+        file: Week2/Worksheet_wk2.qmd
+
+  sidebar:
+  
+    collapse-level: 1
+    style: "floating"
+    
+    contents:
+      - section: "PSYC121"
+        contents: Week1/*
+        
+      - section: "PSYC122"
+        contents: Week2/*
+        
+#     - section: "PSYC214"
+#       contents: PSYC214/*
+#       
+#     - section: "PSYC234"
+#       contents: PSYC234/*
+#       
+#     - section: "PSYC401"
+#       contents: PSYC401/*
+#       
+#     - section: "PSYC402"
+#       contents: PSYC402/* 
+        
+        
+  page-footer:
+    left: "Website developed by Matthew Ivory"
+    right:       
+      - icon: github
+        href: https://github.com/M1V0/Statistics_for_PSYC
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: 
+      - default
+      - custom.scss
+    #css: styles.css
+    code-overflow: wrap
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 300px
     toc: true
+    include-in-header:
+      - text: |
+          <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+          <script language="JavaScript" type="text/javascript" src="/function.js"></script>
+      
 
-editor: visual
+editor: source
 
+validate-yaml: false
