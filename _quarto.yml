@@ -20,18 +20,16 @@ website:
       #- text: Home
       #  file: index.qmd
       - text: Week 1
-        file: Week1/Worksheet_wk1.qmd
-      - text: Week 2
-        file: Week2/Worksheet_wk2.qmd
+        file: Worksheets/Worksheet_wk1.qmd
+      #- text: Week 2
+      #  file: Worksheets/Worksheet_wk2.qmd
 
   sidebar:
   
     collapse-level: 1
     style: "floating"
     
-    contents:
-      - Week1/Worksheet_wk1.qmd
-      - Week2/Worksheet_wk2.qmd
+    contents: Worksheets/*
 
 #     - section: "PSYC214"
 #       contents: PSYC214/*
@@ -50,7 +48,9 @@ website:
     left: "Website developed by Matthew Ivory"
     right:       
       - icon: github
-        href: https://github.com/M1V0/Statistics_for_PSYC
+        href: https://github.com/M1V0/FASS512
+      - icon: file-earmark-slides
+        href: https://modules.lancaster.ac.uk/course/view.php?id=41149
 
 format:
   html:

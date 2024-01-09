@@ -13,9 +13,9 @@ filters: [remove_title.lua]
 
 Welcome to FASS512, Quantitative Research Methods for 2023/2024. In the sidebar you will see each week's worksheets. This is a one-stop shop for all your worksheets, and each week the previous content will have answers incorporated into the content for easier revision.
 
-See Moodle for course slides and recordings.
+See [Moodle](https://modules.lancaster.ac.uk/course/view.php?id=41149) for course slides and recordings.
 
-Helpful links:
+# Helpful links:
 
 - [Installing R and RStudio](https://posit.co/download/rstudio-desktop/)
 - [The Tidyverse Style guide](https://style.tidyverse.org/pipes.html)
