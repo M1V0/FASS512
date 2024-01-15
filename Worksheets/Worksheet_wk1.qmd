@@ -213,7 +213,7 @@ y
 
 ## Step 6. Naming your variables
 
-The name has to follow certain naming conventions. The variable name can consist of letters (upper or lower case), numbers, dots, and underscores. However, it must begin with a letter or a dot that is not followed by a number.
+The name has to follow certain naming conventions. The variable name can consist of letters (upper or lower case), numbers, dots, and underscores. However, it must begin with a letter, or a dot that is not followed by a number. That is, a dot not followed by a number, OR a letter. If it is a dot and then number it will think of it as a decimal.
 
 13. Which of the following would be okay?
 
