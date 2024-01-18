@@ -217,6 +217,42 @@ languages <- languages |>
 head(languages) # show me the top 6 rows
 ```
 
+
+We can also use `mutate()` to change specific values to something else. Look at this example dataset:
+
+```{r}
+#let's create a 2x3 tibble with two participants, who both took part in a study where we tested their working memory, and one was in the control group (1 for yes, 0 for no) and the other was not
+test_data <- tibble(name = c("Jenny", "Jonny"), 
+                    score = c(45, 23),
+                    control_group = c(1,0))
+
+test_data
+```
+
+Looking at the variable `control_group` it may not be clear to everyone what 1 or 0 means, so let's use `mutate()` to update this variable
+
+```{r}
+test_data_update <- test_data |> 
+  mutate(control_group = str_replace(control_group, "1",  "yes"),
+         control_group = str_replace(control_group, "0",  "no"))
+```
+
+Looks pretty complicated! Let's break it down:
+
+* The first line tells us what the new object will be, and what data we are starting with, we are then piping that into:
+* `mutate()` which then tells us we want to update the control_group variable. and we want to apply a new function called `str_replace` which replaces strings. We are saying "look in the variable control group, and if we find a '1', replace it with the string 'yes'. We end the second line with a comma telling R we are doing something more
+* line three then repeats line two (still inside `mutate` if you follow the parentheses), and looks for a '0' and replaces it with 'no'. And we finish there.
+
+Check out both obhjects, what's changed?
+
+```{r}
+test_data
+
+test_data_update
+```
+
+The arguments in `str_replace()` want three things: the column it is checking, the strong it is looking for, and the string to replace it with. What if we wanted 1 to equal "control" and 0 to equal "experiment" instead? Try it out.
+
 We will explore `mutate()` more in later weeks, but know that it is a very useful and powerful tool. It will be a common tool in your data science belt. It can be used in conjunction with other functions to do some really cool things. As a quick teaser, what if we wanted to know the population density per area unit?
 
 ```{r}

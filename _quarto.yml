@@ -21,8 +21,8 @@ website:
       #  file: index.qmd
       - text: Week 1
         file: Worksheets/Worksheet_wk1.qmd
-      #- text: Week 2
-      #  file: Worksheets/Worksheet_wk2.qmd
+      - text: Week 2
+        file: Worksheets/Worksheet_wk2.qmd
 
   sidebar:
   
