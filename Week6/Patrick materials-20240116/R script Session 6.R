@@ -1,4 +1,3 @@
-
 # Script for Handout Session 6 --------------------------------------------
 
 # Installing and loading packages -----------------------------------------

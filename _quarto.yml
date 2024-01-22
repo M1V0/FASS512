@@ -2,8 +2,8 @@ project:
   type: website
   output-dir: docs
   
-execute:
-  freeze: auto  # re-render only when source changes
+#execute:
+#  freeze: auto  # re-render only when source changes
   
 website:
   title: "Statistics for Social Scientists"
@@ -29,7 +29,12 @@ website:
     collapse-level: 1
     style: "floating"
     
-    contents: Worksheets/*
+    contents: 
+      - section: "Worksheets"
+        contents: Worksheets/*
+      - section: "Answersheets"
+        contents: Worksheets/Answers/*
+    
 
 #     - section: "PSYC214"
 #       contents: PSYC214/*
