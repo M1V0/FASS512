@@ -23,7 +23,8 @@ website:
         file: Worksheets/Worksheet_wk1.qmd
       - text: Week 2
         file: Worksheets/Worksheet_wk2.qmd
-
+      - text: Week 3
+        file: Worksheets/Worksheet_wk3.qmd
   sidebar:
   
     collapse-level: 1
