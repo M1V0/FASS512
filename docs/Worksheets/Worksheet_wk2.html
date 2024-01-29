@@ -199,6 +199,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">1. Introduction to quantitative research methods using R - Answers</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Answers/Worksheet_wk2_Answers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data management and data wrangling</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -444,9 +450,9 @@ Note
 <h3 class="anchored" data-anchor-id="txt">TXT</h3>
 <p>The data file you just imported is in the .csv format. You can important data from files in other formats, too. If the data is in .txt format, you can simply use the following command.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>text_file <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">'example_file.txt'</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) <span class="co">#(Note: Ignore the warning message in the console.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>text_file <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">'example_file.txt'</span>) <span class="co">#(Note: Ignore warning message in the console.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The command creates a new data set called text_file. The read_table() function requires you to specify a separator (the argument sep). A separator is whatever divides your columns in your table. If your data is tab-delimited, then you include sep = ‘ in your command, as above. If you are using commas, then you need to include sep =’,’ and so forth. The header = TRUE argument indicates that your data set has a head (usually the column names).</p>
+<p>The command creates a new data set called text_file.</p>
 </section>
 <section id="xlsx" class="level3">
 <h3 class="anchored" data-anchor-id="xlsx">xlsx</h3>
