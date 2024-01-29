@@ -1,0 +1,12 @@
+---
+title: "5. Mid-term "
+author: "Matthew Ivory"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+No worksheet this week! Revisit any topics or ideas in the data science workflow that don't make as much sense as you think they should.
