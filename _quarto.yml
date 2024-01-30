@@ -1,71 +1,45 @@
 project:
   type: website
   output-dir: docs
-  
-#execute:
-#  freeze: auto  # re-render only when source changes
-  
 website:
-  title: "Statistics for Social Scientists"
-  favicon: "Images/favicon.png"
+  title: Statistics for Social Scientists
+  favicon: Images/favicon.png
   page-navigation: true
   back-to-top-navigation: true
-    
   repo-url: https://github.com/M1V0/FASS512
-  repo-actions: [edit, issue]
-  
+  repo-actions:
+  - edit
+  - issue
   navbar:
-    #logo: "Images/icon.png"
     left:
-      #- text: Home
-      #  file: index.qmd
-      - text: Week 1
-        file: Worksheets/Worksheet_wk1.qmd
-      - text: Week 2
-        file: Worksheets/Worksheet_wk2.qmd
-      - text: Week 3
-        file: Worksheets/Worksheet_wk3.qmd
-      - text: Week 4
-        file: Worksheets/Worksheet_wk4.qmd
+    - text: Week 1
+      file: Worksheets/Worksheet_wk1.qmd
+    - text: Week 2
+      file: Worksheets/Worksheet_wk2.qmd
+    - text: Week 3
+      file: Worksheets/Worksheet_wk3.qmd
+    - text: Week 4
+      file: Worksheets/Worksheet_wk4.qmd
   sidebar:
-  
     collapse-level: 1
-    style: "floating"
-    
-    contents: 
-      - section: "Worksheets"
-        contents: Worksheets/*
-      - section: "Answersheets"
-        contents: Worksheets/Answers/*
-    
-
-#     - section: "PSYC214"
-#       contents: PSYC214/*
-#       
-#     - section: "PSYC234"
-#       contents: PSYC234/*
-#       
-#     - section: "PSYC401"
-#       contents: PSYC401/*
-#       
-#     - section: "PSYC402"
-#       contents: PSYC402/* 
-        
-        
+    style: floating
+    contents:
+    - section: Worksheets
+      contents: Worksheets/*
+    - section: Answersheets
+      contents: Worksheets/Answers/*
   page-footer:
-    left: "Website developed by Matthew Ivory"
-    right:       
-      - icon: github
-        href: https://github.com/M1V0/FASS512
-      - icon: file-earmark-slides
-        href: https://modules.lancaster.ac.uk/course/view.php?id=41149
-
+    left: Website developed by Matthew Ivory
+    right:
+    - icon: github
+      href: https://github.com/M1V0/FASS512
+    - icon: file-earmark-slides
+      href: https://modules.lancaster.ac.uk/course/view.php?id=41149
 format:
   html:
-    theme: 
-      - default
-      - custom.scss
-    #css: styles.css
+    theme:
+    - default
+    - custom.scss
     code-overflow: wrap
     grid:
       sidebar-width: 250px
@@ -73,11 +47,10 @@ format:
       margin-width: 300px
     toc: true
     include-in-header:
-      - text: |
-          <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-          <script language="JavaScript" type="text/javascript" src="/function.js"></script>
-      
-
+    - text: |
+        <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script language="JavaScript" type="text/javascript" src="/function.js"></script>
+    css: include/webex.css
+    include-after-body: include/webex.js
 editor: source
-
 validate-yaml: false

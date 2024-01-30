@@ -483,7 +483,7 @@ languages |>
 Let’s try out bar charts now. Again, we load data first. This comes from the Andrews (2021) textbook. Make sure to load it in, and have a look at the data to get an idea for it.
 
 ```{r}
-titanic <- read_csv("TitanicSurvival.csv")
+titanic <- read_csv("titanic.csv")
 ```
 
 * How many columns?
