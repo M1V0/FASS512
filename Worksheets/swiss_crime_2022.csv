@@ -1,0 +1,20 @@
+crime,crime_type,male,female,age18_19,age20_24,age25_29,age30_34,age35_39,age40_44,age45_49,age50_59,age60_69,age70plus,nat_swiss,nat_foreign,foreign_permit,foreign_other,foreign_unknown
+"Intentional homicide, incl. attempts",Severe violence (exercise of violence),82,20,0,16,17,15,13,11,7,12,9,2,38,64,37,26,1
+Grievous bodily harm,Severe violence (exercise of violence),204,6,9,53,42,32,28,14,11,14,4,3,97,113,66,45,2
+Female genital mutilation (in force: 01.07.2012),Severe violence (exercise of violence),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Hostage taking (aggravated case),Severe violence (exercise of violence),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Rape,Severe violence (exercise of violence),71,0,0,7,13,11,12,7,7,11,3,0,25,46,25,20,1
+Violent robbery (aggravated case),Severe violence (exercise of violence),6,0,0,3,1,0,1,1,0,0,0,0,1,5,3,2,0
+Bodily harm,Moderate violence (exercise of violence evt. threat of violence),2111,321,117,377,377,383,330,288,190,251,87,32,1052,1380,907,431,42
+Affray,Moderate violence (exercise of violence evt. threat of violence),365,27,31,159,79,50,24,23,8,12,5,1,162,230,145,79,6
+Attack,Moderate violence (exercise of violence evt. threat of violence),174,15,28,81,27,24,14,8,4,3,0,0,100,89,51,35,3
+Violent robbery (simple case),Moderate violence (exercise of violence evt. threat of violence),339,7,32,111,67,65,26,19,9,10,6,1,137,209,80,127,2
+Coercion,Moderate violence (exercise of violence evt. threat of violence),1241,229,44,215,201,228,180,151,112,189,109,41,828,642,458,169,15
+"Forced marriage, forced registered partnership (in force: 01.07.2013)",Moderate violence (exercise of violence evt. threat of violence),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+False imprisonment and abduction,Moderate violence (exercise of violence evt. threat of violence),94,10,3,23,19,16,16,13,4,5,5,0,57,47,31,13,3
+Aggravating circumstances (aggravated case),Moderate violence (exercise of violence evt. threat of violence),3,3,0,0,2,1,0,2,1,0,0,0,3,3,0,0,0
+Indecent assault,Moderate violence (exercise of violence evt. threat of violence),141,2,1,22,20,16,15,14,9,25,14,7,64,79,49,29,1
+Violence and threats against public authorities and public officials,Moderate violence (exercise of violence evt. threat of violence),1376,234,87,293,308,236,165,175,113,163,52,18,770,840,362,447,31
+Extortion and blackmail (aggravated case),Moderate violence (exercise of violence evt. threat of violence),30,2,1,6,3,6,4,1,3,3,4,1,18,14,4,10,0
+Threatening behaviour,Moderate violence (threat of violence),2398,294,73,245,360,405,376,393,251,376,153,60,1226,1466,1035,381,50
+Extortion and blackmail (simple case),Moderate violence (threat of violence),94,16,7,17,16,19,18,7,10,8,8,0,53,57,35,21,1
