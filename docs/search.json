@@ -182,34 +182,6 @@
     "text": "Footnotes\n\n\nTowse, A. S., Ellis, D. A., & Towse, J. (2021). Making data meaningful: Guidelines for good quality open data. The Journal of Social Psychology, 161(4), 395–402. https://doi.org/10.1080/00224545.2021.1938811↩︎"
   },
   {
-    "objectID": "webexercises.html",
-    "href": "webexercises.html",
-    "title": "Webexercises",
-    "section": "",
-    "text": "This is a Web Exercise template created by the psychology teaching team at the University of Glasgow, based on ideas from Software Carpentry. This template shows how instructors can easily create interactive web documents that students can use in self-guided learning.\nThe {webexercises} package provides a number of functions that you use in inline R code or through code chunk options to create HTML widgets (text boxes, pull down menus, buttons that reveal hidden content). Examples are given below. Render this file to HTML to see how it works.\nNOTE: To use the widgets in the compiled HTML file, you need to have a JavaScript-enabled browser."
-  },
-  {
-    "objectID": "webexercises.html#example-questions",
-    "href": "webexercises.html#example-questions",
-    "title": "Webexercises",
-    "section": "Example Questions",
-    "text": "Example Questions\n\nFill-In-The-Blanks (fitb())\nCreate fill-in-the-blank questions using fitb(), providing the answer as the first argument.\n\n2 + 2 is \n\nYou can also create these questions dynamically, using variables from your R session.\n\nThe square root of 4 is: \n\nThe blanks are case-sensitive; if you don’t care about case, use the argument ignore_case = TRUE.\n\nWhat is the letter after D? \n\nIf you want to ignore differences in whitespace use, use the argument ignore_ws = TRUE (which is the default) and include spaces in your answer anywhere they could be acceptable.\n\nHow do you load the tidyverse package? \n\nYou can set more than one possible correct answer by setting the answers as a vector.\n\nType a vowel: \n\nYou can use regular expressions to test answers against more complex rules.\n\nType any 3 letters: \n\n\n\nMultiple Choice (mcq())\n\n“Never gonna give you up, never gonna: let you goturn you downrun awaylet you down”\n“I bless the rainsguess it rainssense the rain down in Africa” -Toto\n\n\n\nTrue or False (torf())\n\nTrue or False? You can permute values in a vector using sample(). TRUEFALSE\n\n\n\nLonger MCQs (longmcq())\nWhen your answers are very long, sometimes a drop-down select box gets formatted oddly. You can use longmcq() to deal with this. Since the answers are long, It’s probably best to set up the options inside an R chunk with echo=FALSE.\nWhat is a p-value?\n\n the probability that the null hypothesis is true the probability of the observed, or more extreme, data, under the assumption that the null-hypothesis is true the probability of making an error in your conclusion\n\nWhat is true about a 95% confidence interval of the mean?\n\n there is a 95% probability that the true mean lies within this range 95% of the data fall within this range if you repeated the process many times, 95% of intervals calculated in this way contain the true mean"
-  },
-  {
-    "objectID": "webexercises.html#checked-sections",
-    "href": "webexercises.html#checked-sections",
-    "title": "Webexercises",
-    "section": "Checked sections",
-    "text": "Checked sections\nCreate sections with the class webex-check to add a button that hides feedback until it is pressed. Add the class webex-box to draw a box around the section (or use your own styles).\n\nI am going to learn a lot: TRUEFALSE\nWhat is a p-value?\n\n the probability that the null hypothesis is true the probability of the observed, or more extreme, data, under the assumption that the null-hypothesis is true the probability of making an error in your conclusion"
-  },
-  {
-    "objectID": "webexercises.html#hidden-solutions-and-hints",
-    "href": "webexercises.html#hidden-solutions-and-hints",
-    "title": "Webexercises",
-    "section": "Hidden solutions and hints",
-    "text": "Hidden solutions and hints\nYou can fence off a solution area that will be hidden behind a button using hide() before the solution and unhide() after, each as inline R code. Pass the text you want to appear on the button to the hide() function.\nIf the solution is a code chunk, instead of using hide() and unhide(), simply set the webex.hide chunk option to TRUE, or set it to the string you wish to display on the button.\nRecreate the scatterplot below, using the built-in cars dataset.\n\n\n\n\n\n\n\nI need a hint\n\nSee the documentation for plot() (?plot)\n\n\n\n\n\nClick here to see the solution\n\nplot(cars$speed, cars$dist)"
-  },
-  {
     "objectID": "Worksheets/Answers/Worksheet_wk1_Answers.html",
     "href": "Worksheets/Answers/Worksheet_wk1_Answers.html",
     "title": "1. Introduction to quantitative research methods using R - Answers",
@@ -298,7 +270,7 @@
     "href": "Worksheets/Worksheet_wk4.html#step-0-preparing-your-environment",
     "title": "4. Data visualization",
     "section": "Step 0: Preparing your Environment",
-    "text": "Step 0: Preparing your Environment\nFirt things first, open up a new R script and load in the Tidyverse library\n\n\n\n\n\n\nNeed a reminder?\n\n\n\n\n\n\nlibrary(tidyverse)\n\n\n\n\nIn addition, please download the following data files from Moodle (see folder for session 3) and place them in your working directory.\n\nlanguage_exams_shorter.csv\nnettle_1999_climate.csv\nTitanicSurvival.csv\ncarprice.csv\n\nYou will also notice when completing the handout, we will also use a “built-in” dataset. These are datasets that come with R (or are loaded with different packages). They are a nice way to illustrate some of the features of R.\nTo see the list of pre-loaded data, execute the function data(). This will display the available datasets in the script editor.\n\ndata()\n\nThe data is already installed, you don’t need to load it with the data() function. You can just use the built-in datasets in your commands. Often, these datasets come with packages and are used to demonstrate examples in these packages."
+    "text": "Step 0: Preparing your Environment\nFirt things first, open up a new R script and load in the Tidyverse library\n\n\n\n\n\n\nNeed a reminder?\n\n\n\n\n\n\nlibrary(tidyverse)\n\n\n\n\nIn addition, please download the following data files from Moodle and place them in your working directory.\n\nlanguage_exams_shorter.csv\nnettle_1999_climate.csv\ntitanic.csv\ncarprice.csv\n\nYou will also notice when completing the handout, we will also use a “built-in” dataset. These are datasets that come with R (or are loaded with different packages). They are a nice way to illustrate some of the features of R.\nTo see the list of pre-loaded data, execute the function data(). This will display the available datasets in the script editor.\n\ndata()\n\nThe data is already installed, you don’t need to load it with the data() function. You can just use the built-in datasets in your commands. Often, these datasets come with packages and are used to demonstrate examples in these packages."
   },
   {
     "objectID": "Worksheets/Worksheet_wk4.html#step-1-two-plotting-systems-in-r-base-r-and-ggplot",

@@ -42,11 +42,11 @@ library(tidyverse)
 
 :::
 
-In addition, please download the following data files from Moodle (see folder for session 3) and place them in your working directory.
+In addition, please download the following data files from Moodle  and place them in your working directory.
 
 * language_exams_shorter.csv 
 *	nettle_1999_climate.csv
-*	TitanicSurvival.csv
+*	titanic.csv
 *	carprice.csv 
 
 You will also notice when completing the handout, we will also use a “built-in” dataset. These are datasets that come with R (or are loaded with different packages). They are a nice way to illustrate some of the features of R.
