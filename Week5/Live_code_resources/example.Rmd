@@ -1,27 +1,37 @@
-# Set up environment
+# Data Wrangling Walkthrough
+
+## Set up environment
+
 ```{r}
 library(tidyverse)
+# anything else goes here
 ```
 
-# Import Data
+## Import Data
+
+Read in key datafiles
+
 ```{r}
 data_raw <- read_csv("swiss_crime_2022.csv")
 ```
 
-# Check out the data
+Check out the data
+
 ```{r}
 head(data_raw)
 colnames(data_raw)
 ```
 
-# What do we need to keep if we are wanting to visualise the differences in type of crime convicted in the Swiss Adult population?
+## Tidying data to minimum required
+
+What do we need to keep if we are wanting to visualise the differences in type of crime convicted in the Swiss Adult population?
 
 ```{r}
 data <- data_raw |> 
   select(crime, crime_type, contains("age"))
 ```
 
-# How do I condense down all the specific crimes into one value?
+## How do I condense down all the specific crimes into one value?
 
 ```{r}
 data_tidy <- data |>
@@ -47,7 +57,8 @@ data_tidy <- data_tidy |>
                                                     "Severe violence (exercise of violence)")))
 ```
 
-# pivot so it's ready for plotting
+## pivot so it's ready for plotting
+
 ```{r}
 data_tidy_long <- data_tidy |> 
   pivot_longer(cols = age18_19:age70plus, 
@@ -55,6 +66,7 @@ data_tidy_long <- data_tidy |>
                values_to = "convictions")
 
 ```
+## Plotting
 
 ```{r}
 data_tidy_long |> 
@@ -62,12 +74,15 @@ data_tidy_long |>
   ggplot(aes(age_group, convictions)) +
   geom_col()
 
+#try colour first, and then go to fill
 data_tidy_long |> 
-  ggplot(aes(age_group, convictions, colour = crime_type)) +
+  ggplot(aes(age_group, convictions, fill = crime_type)) +
   geom_col(position = "dodge")
 ```
 
 What can we see in the dataset (as well as the x-axis) that indicates this is a misleadingly organised dataset?
+
+The age ranges are not consistent - so the above plot is misleading, just like the examples in week 4.
 
 ```{r}
 data_tidy_ages <- data_tidy |> mutate(
@@ -84,7 +99,7 @@ data_tidy_ages_long <- data_tidy_ages |>
                values_to = "convictions") 
 
 data_tidy_ages_long |> 
-  ggplot(aes(age_group, convictions, colour = crime_type)) +
+  ggplot(aes(age_group, convictions, fill = crime_type)) +
   geom_col(position = "dodge")
 ```
 
@@ -97,10 +112,10 @@ data_tidy_ages_long_percent <- data_tidy_ages_long |>
   left_join(data_tidy_ages_long_sum, by = join_by(age_group)) |> 
   mutate(percentage = convictions/total*100)
 
-#sanity check
-data_tidy_ages_long_percent |> 
-  filter(age_group == "age18_19") |> 
-  pull(percentage) |> sum()
+##sanity check
+#data_tidy_ages_long_percent |> 
+#  filter(age_group == "age18_19") |> 
+#  pull(percentage) |> sum()
 ```
 
 ```{r}
@@ -108,3 +123,5 @@ data_tidy_ages_long_percent |>
   ggplot(aes(age_group, percentage, colour = crime_type)) +
   geom_col(position = "dodge")
 ```
+
+What inferences can we draw from this? What else could we explore?
