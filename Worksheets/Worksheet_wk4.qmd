@@ -21,7 +21,7 @@ Three important things to remember:
 
 Many of the examples and data files from our class come from these excellent textbooks:
 
-* Andrews, M. (2021). Doing data science in R. Sage.
+* Andrews, M. (2021). Doing data science in R. Sage. 
 * Crawley, M. J. (2013). The R book. Wiley.
 * Fogarty, B. J. (2019). Quantitative social science data with R. Sage.
 * Winter, B. (2019). Statistics for linguists. An introduction using R. Routledge.
