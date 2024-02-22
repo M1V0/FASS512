@@ -8,7 +8,7 @@
 
 <meta name="author" content="Matthew Ivory">
 
-<title>Statistics for Social Scientists - 5. Live Data Wrangling Walkthrough</title>
+<title>Statistics for Social Scientists - 7. Probability and distributions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Worksheets/Worksheet_wk6.html" rel="next">
-<link href="../Worksheets/Worksheet_wk4.html" rel="prev">
+<link href="../Worksheets/Answers/Worksheet_wk1_Answers.html" rel="next">
+<link href="../Worksheets/Worksheet_wk6.html" rel="prev">
 <link href="../Images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -100,6 +100,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="../function.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../include/webex.css">
 </head>
@@ -160,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk1.html">Worksheets</a></li><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk5.html">5. Live Data Wrangling Walkthrough</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk1.html">Worksheets</a></li><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk7.html">7. Probability and distributions</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -207,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Worksheets/Worksheet_wk5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../Worksheets/Worksheet_wk5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. Live Data Wrangling Walkthrough</span></a>
   </div>
 </li>
@@ -219,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Worksheets/Worksheet_wk7.html" class="sidebar-item-text sidebar-link">
+  <a href="../Worksheets/Worksheet_wk7.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7. Probability and distributions</span></a>
   </div>
 </li>
@@ -270,21 +272,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#set-up-environment" id="toc-set-up-environment" class="nav-link active" data-scroll-target="#set-up-environment">Set up environment</a></li>
-  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import Data</a></li>
-  <li><a href="#tidying-data-to-minimum-required" id="toc-tidying-data-to-minimum-required" class="nav-link" data-scroll-target="#tidying-data-to-minimum-required">Tidying data to minimum required</a></li>
-  <li><a href="#how-do-i-condense-down-all-the-specific-crimes-into-one-value" id="toc-how-do-i-condense-down-all-the-specific-crimes-into-one-value" class="nav-link" data-scroll-target="#how-do-i-condense-down-all-the-specific-crimes-into-one-value">How do I condense down all the specific crimes into one value?</a></li>
-  <li><a href="#pivot-so-its-ready-for-plotting" id="toc-pivot-so-its-ready-for-plotting" class="nav-link" data-scroll-target="#pivot-so-its-ready-for-plotting">pivot so it’s ready for plotting</a></li>
-  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
+  <li><a href="#references-for-this-handout" id="toc-references-for-this-handout" class="nav-link active" data-scroll-target="#references-for-this-handout">References for this handout</a></li>
+  <li><a href="#task-0-setting-up-our-environment" id="toc-task-0-setting-up-our-environment" class="nav-link" data-scroll-target="#task-0-setting-up-our-environment">Task 0: Setting up our environment</a></li>
+  <li><a href="#task-1-chi-squared-and-cramers-v" id="toc-task-1-chi-squared-and-cramers-v" class="nav-link" data-scroll-target="#task-1-chi-squared-and-cramers-v">Task 1: Chi-squared and Cramer’s V</a>
+  <ul class="collapse">
+  <li><a href="#running-the-analysis-for-other-variables" id="toc-running-the-analysis-for-other-variables" class="nav-link" data-scroll-target="#running-the-analysis-for-other-variables">Running the analysis for other variables</a></li>
+  </ul></li>
+  <li><a href="#task-2-repetition-repetition-repetition" id="toc-task-2-repetition-repetition-repetition" class="nav-link" data-scroll-target="#task-2-repetition-repetition-repetition">Task 2: Repetition, repetition, repetition</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/M1V0/FASS512/edit/main/Worksheets/Worksheet_wk5.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/M1V0/FASS512/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/M1V0/FASS512/edit/main/Worksheets/Worksheet_wk7.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/M1V0/FASS512/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">5. Live Data Wrangling Walkthrough</h1>
+<h1 class="title">7. Probability and distributions</h1>
 </div>
 
 
@@ -305,173 +308,223 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="set-up-environment" class="level2">
-<h2 class="anchored" data-anchor-id="set-up-environment">Set up environment</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.4.4     ✔ purrr   1.0.2
-✔ tibble  3.2.1     ✔ dplyr   1.1.2
-✔ tidyr   1.3.0     ✔ stringr 1.5.0
-✔ readr   2.1.3     ✔ forcats 0.5.2
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anything else goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Three important things to remember:</p>
+<ol type="1">
+<li><p>As you complete the handout, please don’t just read the commands, please type every single one of them. This is really important: Learning to program is like practicing a conversation in a new language. You will improve gradually, but only if you practice.</p></li>
+<li><p>If you’re stuck with something, please write down your questions (to share later in class) and try to solve the problem. Please ask your group members for support and, conversely, if another student is stuck, please try to help them out, too. This way, we develop a supportive learning environment that benefits everybody. In addition, get used to the Help pages in RStudio and start finding solutions online (discussion forums, online textbooks, etc.). This is really important, too. You will only really know how to do quantitative research and statistical analyses when you are doing your own research and dealing with your own data. At that point, you need to be sufficiently autonomous to solve problems, otherwise you will end up making very slow progress in your PhD.</p></li>
+<li><p>Finally, if you do not complete the handout in class, please complete the handout at home. This is important as we will assume that you know the material covered in this handout. And again, the more you practice the better, so completing these handouts at home is important.</p></li>
+</ol>
+<section id="references-for-this-handout" class="level3">
+<h3 class="anchored" data-anchor-id="references-for-this-handout">References for this handout</h3>
+<p>Many of the examples and data files from our class come from these excellent textbooks:</p>
+<ul>
+<li>Andrews, M. (2021). Doing data science in R. Sage.</li>
+<li>Crawley, M. J. (2013). The R book. Wiley.</li>
+<li>Fogarty, B. J. (2019). Quantitative social science data with R. Sage.</li>
+<li>Winter, B. (2019). Statistics for linguists. An introduction using R. Routledge.</li>
+</ul>
 </section>
-<section id="import-data" class="level2">
-<h2 class="anchored" data-anchor-id="import-data">Import Data</h2>
-<p>Read in key datafiles</p>
+<section id="task-0-setting-up-our-environment" class="level2">
+<h2 class="anchored" data-anchor-id="task-0-setting-up-our-environment">Task 0: Setting up our environment</h2>
+<p>You should be able to do all these things, if not - check back on previous week’s content as a reminder</p>
+<ol type="1">
+<li><p>Create a new script and call it Week 7.</p></li>
+<li><p>Load in the tidyverse library at the top of the script</p></li>
+</ol>
+</section>
+<section id="task-1-chi-squared-and-cramers-v" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-chi-squared-and-cramers-v">Task 1: Chi-squared and Cramer’s V</h2>
+<p>Let’s now have a look at running Chi-squared and Cramer’s V tests in R. download this week’s data moodle. Read titanic.csv into an object called “titanic”. It is a list of all the passengers aboard the titanic and their survival outcome.</p>
+<p>Can you remember the code you would need to <strong>read the csv</strong> file <code>titanic.csv</code> and assign it to an object called <strong>titanic</strong>?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Need a reminder?">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Need a reminder?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"swiss_crime_2022.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"titanic.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 19 Columns: 19
+<pre><code>Rows: 1309 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr  (2): crime, crime_type
-dbl (17): male, female, age18_19, age20_24, age25_29, age30_34, age35_39, ag...
+chr (4): name, survived, sex, passengerClass
+dbl (1): age
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>Check out the data</p>
+</div>
+</div>
+</div>
+<p>Once we’ve read that in, we need to do some wrangling to get the data into a usable format. Below I have given you the code, but can you identify what each part of the code does? Use the <code>?group_by</code> notation in the console to get the help pages, or google the functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>titanic_summary <span class="ot">&lt;-</span> titanic <span class="sc">|&gt;</span> <span class="fu">group_by</span>(survived, passengerClass) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'survived'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+<p>Let us view the output - what do we have in this tibble?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>titanic_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 19
-  crime     crime_type  male female age18_19 age20_24 age25_29 age30_34 age35_39
-  &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-1 Intentio… Severe vi…    82     20        0       16       17       15       13
-2 Grievous… Severe vi…   204      6        9       53       42       32       28
-3 Female g… Severe vi…     0      0        0        0        0        0        0
-4 Hostage … Severe vi…     0      0        0        0        0        0        0
-5 Rape      Severe vi…    71      0        0        7       13       11       12
-6 Violent … Severe vi…     6      0        0        3        1        0        1
-# ℹ 10 more variables: age40_44 &lt;dbl&gt;, age45_49 &lt;dbl&gt;, age50_59 &lt;dbl&gt;,
-#   age60_69 &lt;dbl&gt;, age70plus &lt;dbl&gt;, nat_swiss &lt;dbl&gt;, nat_foreign &lt;dbl&gt;,
-#   foreign_permit &lt;dbl&gt;, foreign_other &lt;dbl&gt;, foreign_unknown &lt;dbl&gt;</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "crime"           "crime_type"      "male"            "female"         
- [5] "age18_19"        "age20_24"        "age25_29"        "age30_34"       
- [9] "age35_39"        "age40_44"        "age45_49"        "age50_59"       
-[13] "age60_69"        "age70plus"       "nat_swiss"       "nat_foreign"    
-[17] "foreign_permit"  "foreign_other"   "foreign_unknown"</code></pre>
+<pre><code># A tibble: 6 × 3
+  survived passengerClass count
+  &lt;chr&gt;    &lt;chr&gt;          &lt;int&gt;
+1 no       1st              123
+2 no       2nd              158
+3 no       3rd              528
+4 yes      1st              200
+5 yes      2nd              119
+6 yes      3rd              181</code></pre>
 </div>
 </div>
+<p>The summary table can be useful to look at or use as a report table.</p>
+<p>Make a bar graph to count the numbers of survived and died by class. We will be using <code>ggplot()</code> for which it does a lot of the hard work of counting occurrences etc. so if we want a plot with passenger class on the x-axis and the number of people who survived or died in each class, we need to specify this in the code.</p>
+<p>As is, the code below won’t run because the <code>aes()</code> section is empty. We need to specify the x-axis (class) as well as the fill of the bars (survival). Replace the <code>NA</code>s with the right variable names</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="cn">NA</span>, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s see if there is a significant relation between class and survival using Chi-squared:</p>
+<p>What are the two variables we are interested in?</p>
+<p>What is the <strong>Dependent</strong> Variable? <select class="webex-select"><option value="blank"></option><option value="">passengerClass</option><option value="">name</option><option value="">sex</option><option value="">age</option><option value="answer">survived</option></select></p>
+<p>What is the <strong>Independent</strong> Variable? <select class="webex-select"><option value="blank"></option><option value="answer">passengerClass</option><option value="">name</option><option value="">sex</option><option value="">age</option><option value="">survived</option></select></p>
+<p>Great job! Now we can use the function <code>chisq.test</code> that takes two arguments, <code>x</code> and <code>y</code> where these are the columns we want to test. We need to use the <code>dataframe$column</code> format for this test. Can you complete the code for this?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> , <span class="at">y =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Need the answer?">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Need the answer?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> titanic<span class="sc">$</span>passengerClass, <span class="at">y =</span> titanic<span class="sc">$</span>survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The results give the chi-squared value, the number of degrees of freedom, and the p-value. P = 2.2e-16 means p = .0000000000000022. That’s highly significant!</p>
+<p>That means the observations are divided across the categories in a way that is very unlikely to be due to chance (for this number (P = 2.2e-16), it means there’s a 2 in a quadrillion chance that titanic survival was not related to class). In a report, you would write: <span class="math inline">\(\chi^2\)</span>(2, 1309) = 127.86, p &lt; .001.</p>
+<p>Now, let’s compute Cramer’s V. First, we need to make sure we have the package lsr. You might need to install this first - I’m sure you remember how. If not, look back at previous worksheets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lsr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then run the test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cramersV</span>(<span class="at">x =</span> titanic<span class="sc">$</span>class, <span class="at">y =</span> titanic<span class="sc">$</span>survival)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="running-the-analysis-for-other-variables" class="level3">
+<h3 class="anchored" data-anchor-id="running-the-analysis-for-other-variables">Running the analysis for other variables</h3>
+<p>In our data, we have five variables in total, we have the dependent variable set as survived, but what else can we apply the <span class="math inline">\(\chi^2\)</span> test to? Out of the remaining variables of name, sex, and age, can you pick the one that is suitable for this analysis? That is, it is in the right data format</p>
+<p>The suitable variable is: <select class="webex-select"><option value="blank"></option><option value="">name</option><option value="answer">sex</option><option value="">age</option></select></p>
+<p>Now, using the code we have used above and should be neatly set up in your script, reproduce the steps to test this variable and make inferences about its effect on survival rates.</p>
+<p>The last message that was relayed from Royal Mail Steamer Titanic was - “Sinking by the head. Have cleared boats and filled them with women and children.”</p>
+<p>Suppose we are wanting to investigate whether it <em>really</em> was “women and children first!” during the sinking of the Titanic. If this is truly what was called out, what might we hypothesise about the survival rates of the passengers based upon their recorded sex? Can you construct a directional hypothesis that includes both the IV, DV, and expected direction?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="My example">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+My example
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Male passengers were less likely to survive the sinking of the Titanic than Female passengers.</p>
+<p>We have our <strong>IV</strong> - male/female</p>
+<p>We have our <strong>DV</strong> - survival</p>
+<p>We have everthing here. It is testable with our data, and it clearly states our intentions</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>We want to first <strong>visualise</strong> the data, so make a bar plot</p></li>
+<li><p>We then want to carry out the <strong>chi squared</strong> test</p></li>
+<li><p>Then finally <strong>Cramer’s V</strong></p></li>
+<li><p>Then to test that you got everything right, can you fill in the blanks below with the correct information? Round all the values to 2dp <strong>EXCEPT</strong> for p-values, which are reported to 3 (unless it is less than .001 in which case we write “<em>p</em> &lt; .001”. We do not include the leading zero, so it is .001 not 0.001</p></li>
+</ul>
+<p>To test the hypothesis <select class="webex-select"><option value="blank"></option><option value="answer">“Male passengers were less likely to survive the sinking of the Titanic than Female passengers”</option></select>, an examination of the deaths was tested between the male/female categorisation of the passengers. A <select class="webex-select"><option value="blank"></option><option value="answer">significant</option><option value="">non-significant</option></select> effect was detected, <span class="math inline">\(\chi^2\)</span>(2, 1309) = <input class="webex-solveme nospaces" size="6" data-answer="[&quot;363.62&quot;]">, <em>p</em> <select class="webex-select"><option value="blank"></option><option value="">=</option><option value="answer">&lt;</option></select> <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.001&quot;]">, V = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.53&quot;,&quot;.53&quot;]">.</p>
+<p>So what can we say about our hypothesis? Do we think that there may be some credibility to the notion that men stayed behind on the Titanic? Yes, I think we can say with some statistical certainty that the observed number of men who died compared to women upon the Titanic was significantly different enough to suggest the claims of “Women and Children first!” is credible.</p>
+<p>Pause for a moment, and reflect on what you’ve just done (twice). We had some data, we had an idea that we turned into a hypothesis and from which we conducted a statistical analysis and detected a significant effect on class and sex upon whether Titanic passengers died. No longer do these questions need to keep you awake at night, you can sleep easy.</p>
 </section>
-<section id="tidying-data-to-minimum-required" class="level2">
-<h2 class="anchored" data-anchor-id="tidying-data-to-minimum-required">Tidying data to minimum required</h2>
-<p>What do we need to keep if we are wanting to visualise the differences in type of crime convicted in the Swiss Adult population according to age?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data_raw <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(crime, crime_type, <span class="fu">contains</span>(<span class="st">"age"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="how-do-i-condense-down-all-the-specific-crimes-into-one-value" class="level2">
-<h2 class="anchored" data-anchor-id="how-do-i-condense-down-all-the-specific-crimes-into-one-value">How do I condense down all the specific crimes into one value?</h2>
+<section id="task-2-repetition-repetition-repetition" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-repetition-repetition-repetition">Task 2: Repetition, repetition, repetition</h2>
+<p>This section is far more bare bones, chiefly because all the content has been listed out for you above, we’re just applying it to different contexts.</p>
+<p>Read in the csv file named <code>2023-12-lancashire-stop-and-search_simple.csv</code>. This data is a simplified version of the data downloaded from <a href="https://data.police.uk/data/">https://data.police.uk/data/</a> for December 2023 for the Lancashire Constabulary including all three data sets. You can download it yourself with different forces or dates, just know that your values will be different to any I publish. I have then applied the following code to the raw data, just to keep it a bit more simplistic for our purposes. I show you the code for transparency in the accordion below, but if you are using the simple dataset I provide, then you don’t need to run the code.</p>
+<p>The dataset is the stop and search reports for December 2023, and whether they result in an arrest or not, where we can separate by gender.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Data Tidying">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data Tidying
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_tidy <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(crime_type) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age18_19 =</span> <span class="fu">sum</span>(age18_19),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">age20_24 =</span> <span class="fu">sum</span>(age20_24),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">age25_29 =</span> <span class="fu">sum</span>(age25_29),</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">age30_34 =</span> <span class="fu">sum</span>(age30_34),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">age35_39 =</span> <span class="fu">sum</span>(age35_39),</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">age40_44 =</span> <span class="fu">sum</span>(age40_44),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">age45_49 =</span> <span class="fu">sum</span>(age45_49),</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">age50_59 =</span> <span class="fu">sum</span>(age50_59),</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">age60_69 =</span> <span class="fu">sum</span>(age60_69),</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">age70plus =</span> <span class="fu">sum</span>(age70plus)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">|&gt;</span> </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>crime) <span class="sc">|&gt;</span> </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># factor the group data</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>data_tidy <span class="ot">&lt;-</span> data_tidy <span class="sc">|&gt;</span> </span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">crime_type =</span> <span class="fu">factor</span>(crime_type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Moderate violence (threat of violence)"</span>, </span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>                                                    <span class="st">"Moderate violence (exercise of violence evt. threat of violence)"</span>,</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                                                    <span class="st">"Severe violence (exercise of violence)"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"2023-12-lancashire-stop-and-search.csv"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>crime <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Outcome, Gender) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span>  <span class="co">#remove any rows without data present</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Outcome =</span> <span class="fu">if_else</span>(Outcome <span class="sc">==</span> <span class="st">"Arrest"</span>, <span class="st">"Arrest"</span>, <span class="st">"No Arrest"</span>)) <span class="sc">|&gt;</span> <span class="fu">write_csv</span>(<span class="st">"2023-12-lancashire-stop-and-search_simple.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="pivot-so-its-ready-for-plotting" class="level2">
-<h2 class="anchored" data-anchor-id="pivot-so-its-ready-for-plotting">pivot so it’s ready for plotting</h2>
+</div>
+</div>
+</div>
+<p>Otherwise we just load in the data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_tidy_long <span class="ot">&lt;-</span> data_tidy <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> age18_19<span class="sc">:</span>age70plus, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"age_group"</span>, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"convictions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="plotting" class="level2">
-<h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(crime_type <span class="sc">==</span> <span class="st">"Severe violence (exercise of violence)"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age_group, convictions)) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Worksheet_wk5_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#try colour first, and then go to fill</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age_group, convictions, <span class="at">fill =</span> crime_type)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Worksheet_wk5_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"2023-12-lancashire-stop-and-search_simple.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2672 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): Outcome, Gender
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>What can we see in the dataset (as well as the x-axis) that indicates this is a misleadingly organised dataset?</p>
-<p>The age ranges are not consistent - so the above plot is misleading, just like the examples in week 4.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_tidy_ages <span class="ot">&lt;-</span> data_tidy <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">age20_29 =</span> <span class="fu">sum</span>(age20_24, age25_29),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age30_39 =</span> <span class="fu">sum</span>(age30_34, age35_39),</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age40_49 =</span> <span class="fu">sum</span>(age40_44, age45_49),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">.before =</span> age50_59</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(age20_24, age25_29, age30_34, age35_39, age40_44, age45_49))</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>data_tidy_ages_long <span class="ot">&lt;-</span> data_tidy_ages <span class="sc">|&gt;</span> </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> age18_19<span class="sc">:</span>age70plus, </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"age_group"</span>, </span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"convictions"</span>) </span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>data_tidy_ages_long <span class="sc">|&gt;</span> </span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age_group, convictions, <span class="at">fill =</span> crime_type)) <span class="sc">+</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Worksheet_wk5_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_tidy_ages_long_sum <span class="ot">&lt;-</span> data_tidy_ages_long <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(convictions))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>data_tidy_ages_long_percent <span class="ot">&lt;-</span> data_tidy_ages_long <span class="sc">|&gt;</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(data_tidy_ages_long_sum, <span class="at">by =</span> <span class="fu">join_by</span>(age_group)) <span class="sc">|&gt;</span> </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> convictions<span class="sc">/</span>total<span class="sc">*</span><span class="dv">100</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">##sanity check</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#data_tidy_ages_long_percent |&gt; </span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(age_group == "age18_19") |&gt; </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  pull(percentage) |&gt; sum()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_tidy_ages_long_percent <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age_group, percentage, <span class="at">colour =</span> crime_type)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Worksheet_wk5_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>What inferences can we draw from this? What else could we explore?</p>
+<ol type="1">
+<li>Create a summary table</li>
+</ol>
+<ol start="2" type="1">
+<li>Visualise the differences in a bar plot</li>
+</ol>
+<ol start="3" type="1">
+<li><p>Construct your hypothesis and assert what you think may be an effect here</p></li>
+<li><p>Carry out Chi-squared test and Cramer’s V.</p></li>
+</ol>
+<ol start="5" type="1">
+<li>Is there a significant effect here? What does this mean for your hypothesis, can you <em>reject</em> the null or <em>fail to reject</em> the null? How would you write this in a report?</li>
+</ol>
+<p>That’s all for this worksheet - feel free to continue exploring the crime dataset, download a broader time range? Is there an effect outside of the month of January? What about other police forces? Is one maybe “arrest-heavy”? Caveat, I don’t know - I only looked at the dataset I provided.</p>
 
 
 </section>
@@ -918,13 +971,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Worksheets/Worksheet_wk4.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4. Data visualization</span>
+      <a href="../Worksheets/Worksheet_wk6.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">6. Probability and distributions</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Worksheets/Worksheet_wk6.html" class="pagination-link">
-        <span class="nav-page-text">6. Probability and distributions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../Worksheets/Answers/Worksheet_wk1_Answers.html" class="pagination-link">
+        <span class="nav-page-text">1. Introduction to quantitative research methods using R - Answers</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
