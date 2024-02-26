@@ -391,15 +391,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.652264637 0.124032073 0.890394654 0.742628154 0.049518018 0.120374257
- [7] 0.991995384 0.819310642 0.431270992 0.199287164 0.715673044 0.763969602
-[13] 0.258351260 0.342876960 0.221154370 0.351221131 0.761707332 0.579286306
-[19] 0.833942145 0.938103146 0.705344154 0.423134025 0.832892041 0.739389774
-[25] 0.883424074 0.695257714 0.542290689 0.221441256 0.001278284 0.504274227
-[31] 0.329049892 0.084045043 0.891536614 0.880657559 0.586212496 0.984774780
-[37] 0.426927763 0.616865960 0.977382223 0.302395172 0.959077381 0.882278659
-[43] 0.186550758 0.817185299 0.241673633 0.142753755 0.915655833 0.236134510
-[49] 0.560391898 0.961230726</code></pre>
+<pre><code> [1] 0.071064856 0.593590024 0.078972263 0.406239128 0.650339714 0.190857114
+ [7] 0.532831167 0.023141057 0.202315305 0.998393642 0.629471679 0.104742239
+[13] 0.952757735 0.466886874 0.647739388 0.862130594 0.075098181 0.031869851
+[19] 0.395666967 0.692512424 0.340536465 0.662162565 0.716519889 0.245664157
+[25] 0.719676674 0.426027308 0.922275455 0.306151489 0.442720156 0.037029487
+[31] 0.026385838 0.045534393 0.033176836 0.358116205 0.689755002 0.692175392
+[37] 0.552964251 0.826065694 0.001379295 0.226757424 0.021141927 0.372791185
+[43] 0.490906434 0.592716028 0.797150461 0.259730056 0.334078428 0.463236941
+[49] 0.699142272 0.762269609</code></pre>
 </div>
 </div>
 <p>By default, the <code>runif()</code> function will generate random values between 0 and 1. We can override the default setting by adding the min and max arguments. The following command will generate uniformly distributed random numbers between 2 and 6.</p>
@@ -410,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.142928 4.302589 4.034358 2.180911 3.929941 4.011216</code></pre>
+<pre><code>[1] 4.100769 3.604814 5.805565 2.788851 3.952187 4.028523</code></pre>
 </div>
 </div>
 <p>It’s good to visualize the data. The following histogram does the trick. Remember that my plot will look different from yours as the dataset is randomly generated for each of us.</p>
@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="Worksheet_wk6_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Note that the histogram doesn’t necessarily look like a normal distribution, despite the fact that the data are drawn from a normally-distributed population. (The mean of the above data is 4.1085498, right in the middle, as you would expect from a normal distribution.)</p>
+<p>Note that the histogram doesn’t necessarily look like a normal distribution, despite the fact that the data are drawn from a normally-distributed population. (The mean of the above data is 3.8947757, right in the middle, as you would expect from a normal distribution.)</p>
 <p>The following command assigns 50 random numbers from a normal distribution, produces a histogram and adds a dashed line (lty = 2) with width 2 (lwd = 2) to indicate the mean.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
@@ -448,11 +448,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|eval: true</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.151875</code></pre>
+<pre><code>[1] 4.926366</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.291827</code></pre>
+<pre><code>[1] 1.979936</code></pre>
 </div>
 </div>
 <p>The <code>quantile()</code> function allows us to compute percentiles. If we just run the <code>quantile()</code> function on our data set a without supplying additional arguments, the output will show the minimum (0th percentile) and maximum (100th percentile) as well as the first quantile (Q1, 25% percentile), the second quantile (Q2, 50% percentile, which is the median), and the third quantile (Q3, 75% percentile).</p>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       0%       25%       50%       75%      100% 
-0.7200896 3.4726135 5.6451534 6.9398778 8.8805964 </code></pre>
+0.3346399 3.6708170 4.6141703 6.3811767 8.5435769 </code></pre>
 </div>
 </div>
 <p>Let’s use the <code>quantile()</code> function to check the 68-95-99.7 rule.</p>
@@ -469,23 +469,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(a, <span class="fl">0.16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     16% 
-2.532407 </code></pre>
+3.120093 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(a, <span class="fl">0.84</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     84% 
-7.485916 </code></pre>
+<pre><code>    84% 
+7.34109 </code></pre>
 </div>
 </div>
 <p>If the 68% rule works, the resulting numbers should be close to the interval by M – SD and M + SD. We can confirm this by writing the following commands. And yes, it looks like the numbers are fairly close to the 16th and 84th percentile.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a) <span class="sc">-</span> <span class="fu">sd</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.860048</code></pre>
+<pre><code>[1] 2.94643</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a) <span class="sc">+</span> <span class="fu">sd</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 7.443702</code></pre>
+<pre><code>[1] 6.906302</code></pre>
 </div>
 </div>
 <p>We now do the same for the 95% interval, which corresponds to the interval between the 2.5th percentile and the 97.5th percentile.</p>
@@ -493,23 +493,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(a, <span class="fl">0.025</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     2.5% 
-0.8957811 </code></pre>
+0.5330214 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(a, <span class="fl">0.975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   97.5% 
-8.550589 </code></pre>
+<pre><code>  97.5% 
+8.39167 </code></pre>
 </div>
 </div>
 <p>The 2.5th and 97.5th percentile should correspond roughly to +/- 2 SD around the mean.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a) <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.5682216</code></pre>
+<pre><code>[1] 0.9664945</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.735528</code></pre>
+<pre><code>[1] 8.886237</code></pre>
 </div>
 </div>
 <p>As you can see when you compare the two previous calculations, the 95% rule is a little off. This is because we are dealing with a small data set (n = 50).</p>
