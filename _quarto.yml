@@ -26,6 +26,8 @@ website:
       file: Worksheets/Worksheet_wk6.qmd
     - text: Week 7
       file: Worksheets/Worksheet_wk7.qmd
+    - text: Week 8
+      file: Worksheets/Worksheet_wk8.qmd
   sidebar:
     collapse-level: 1
     style: floating
