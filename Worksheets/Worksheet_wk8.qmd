@@ -41,7 +41,7 @@ You should be able to do all these things, if not - check back on previous week'
 
 First off, let's play a game of: [guess the correlation](https://www.rossmanchance.com/applets/2021/guesscorrelation/GuessCorrelation.html). Click "track performance" to keep score, and then click "new sample", take a guess at what the correlation is showing and check your guess. Try out a few. See if you can beat my score of *r* = .976 over 10 guesses! We will shortly see what the scores mean, but the closer to 1 the better
 
-![My attempt at guessing the correlations](Images/myCorrScore.png)
+![My attempt at guessing the correlations](images/myCorrScore.png)
 
 ### Conducting a correlation
 
