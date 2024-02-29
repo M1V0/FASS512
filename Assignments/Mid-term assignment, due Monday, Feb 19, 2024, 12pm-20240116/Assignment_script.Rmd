@@ -1,0 +1,112 @@
+---
+title: Mid-term Assignment
+author: Matthew Ivory
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+crime_data <- read_csv("/Users/ivorym/Downloads/Mid-term assignment, due Monday, Feb 19, 2024, 12pm-20240220/crimes-sep21.csv")
+
+crime_data
+```
+
+## Question 1
+
+Using R, calculate the mean rates and standard deviations for (a) stalking and harassment, and (b) theft. Report your results in one or two complete sentences, as if you were including them in a research report, rounded to two decimal places.
+
+```{r}
+data_summary_1 <- crime_data |> 
+  summarise(stalk_mean = mean(stalk), stalk_sd = sd(stalk),
+            theft_mean = mean(theft), theft_sd = sd(theft))
+
+
+```
+
+Between September 2020 and September 2021, the mean number of stalking and harassment-related crimes (per 1,000 head of population) across the UK, excluding London, was `r round(data_summary_1$stalk_mean, 2)` (SD = `r round(data_summary_1$stalk_sd, 2)`). For theft-related crimes, more were reported at `r round(data_summary_1$theft_mean, 2)` (SD = `r round(data_summary_1$theft_sd, 2)`)
+
+## Question 2
+
+Using R, calculate the median rates and interquartile ranges for (a) drugs offences, and (b) violence against the person. Report your results in one or two complete sentences, as if you were including them in a research report, rounded to two decimal places.
+
+```{r}
+summary(crime_data$drugs)
+
+summary(crime_data$vioper)
+
+```
+
+
+Between September 2020 and September 2021, the median number of drug-related crimes in the UK per 1,000 head of the population was `r summary(crime_data$drugs)[3]` (IQR = `r summary(crime_data$drugs)[2]`, `r summary(crime_data$drugs)[4]`). In comparison, for reported violence against the person, the median number was `r summary(crime_data$vioper)[3]` (IQR = `r summary(crime_data$vioper)[2]`, `r summary(crime_data$vioper)[4]`), indicating that far more violence-related crimes were reported than drug-related.
+
+## Question 3
+
+The following R code will draw a set of side-by-side boxplots for the rates of public-order offences in the eight regions. (Hint: Remember to name your object appropriately)
+
+```{r eval=FALSE}
+
+crime_data |>
+  ggplot(aes(reorder(region, pubord, median), pubord)) +
+  geom_boxplot()
+
+```
+
+Produce the set of plots, then explain briefly what each element of the plot shows. That is, label and explain, in general terms, its component parts. Then go on to outline what you can infer from it about the present data set.Include the plot in your report. (You may like to cross-refer to the original data table to get the most out of this.)
+
+```{r}
+crime_data |>
+     ggplot(aes(reorder(region, pubord, median), pubord)) +
+     geom_boxplot()
+```
+
+* The x-axis shows the boxplots ordered by median reported number of crimes for public-order offences across the eight regions included in the data set. 
+* The y-axis shows the median value of public-order offences.
+* Each boxplot for the region shows the quartile range contained within the box, and the whiskers extend to 1.5 * IQR, values outside of these ranges are represented as single observations. Smaller boxplots indicate a smaller distribution of the reported crimes.
+* The solid black line is the median score, and this confirms that the data is ordered by median values (as they ascend in value from left to right)
+
+From the plot above, we can infer that variance exists across the different regions in the UK for the reported public order offences committed between September 2020 and September 2021. For example, the South West and West Midlands report very few of these crimes comparied to the North West or Yorkshire & the Humber regions. From this, we can suggest that the levels of public order offences are not homogeneous across the UK, with variatoin between police forces.
+
+## Question 4
+
+### a. Modify the R commands from Question 3 to produce a set of side-by-side boxplots for the rates of criminal damage and arson in the eight regions. Outline briefly what your plots tell us about these data. Comment especially on any peculiar-looking features of these plots, and attempt to explain why they have occurred. Include the plot in your report. (Again, you may wish to cross-refer to the data table here)
+
+```{r}
+crime_data |>
+     ggplot(aes(reorder(region, crimdam, median), crimdam)) +
+     geom_boxplot()
+```
+
+From this plot, we can see the different reported levels of criminal damage and arson across the eight recorded regions in the UK. There exist two outlier values for region 7 (South East) and region 3 (Yorkshire and the Humber). One outstanding feature warranting note is the very high proportion of recorded criminal damage and arson crimes in the North East. There are numerous possible reasons for this that range from the spurious (that the population of the North East are predisposed to commit arson specifically), to the more likely such as that there are typically higher rates of crime in the North East region (as can be verified in the total crime rates for each region). Other acceptable reasons or inferences (non-exhaustive) would include that perhaps differences within the propensity of police forces reporting crimes influence these levels. Perhaps a higher sensitivity towards what constitutes arson. Other reasons may exist, and any potentially justifiable idea that indicates these differences are worthy of marks.
+
+Going further, a good point to note, to show real interrogation of the data (and evidence higher grade attainment) would be to order the x-axis by total crime reported to show that the highest crime rate is for region 3 (Yorkshire and the Humber) but has a lower arson level.
+
+```{r}
+crime_data |>
+     ggplot(aes(reorder(region, totcrim, median), crimdam)) +
+     geom_boxplot()
+```
+
+
+### b. modify the plot for question 4 and give it appropriate label axes (both x and y), and change the region labels from numbers to the names of the regional areas (e.g. 1 should be North East). Hint: you will need to use mutate() to update the data like we did in week 3. Include the publication-ready plot in your report with a suitable caption.
+
+```{r}
+crime_data |>
+  mutate(region = str_replace(region, "1", "North East"),
+         region = str_replace(region, "2", "North West"),
+         region = str_replace(region, "3", "Yorkshire and the Humber"),
+         region = str_replace(region, "4", "East Midlands"),
+         region = str_replace(region, "5", "West Midlands"),
+         region = str_replace(region, "6", "East of England"),
+         region = str_replace(region, "7", "South East"),
+         region = str_replace(region, "8", "South East")
+         ) |> 
+     ggplot(aes(reorder(region, crimdam, median), crimdam)) +
+     geom_boxplot() +
+  labs(x = "UK region", y = "Reported rates of Criminal Damage and Arson",
+       caption = "Boxplot to show the different reported rates of Criminal Damage and Arson across the eight regions in the UK (excluding London)") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+

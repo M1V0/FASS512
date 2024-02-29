@@ -1,0 +1,254 @@
+---
+title: "7. Tests for discrete variables"
+author: "Matthew Ivory"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = TRUE)
+
+library(webexercises)
+library(tidyverse)
+```
+
+Three important things to remember:
+
+1. As you complete the handout, please don’t just read the commands, please type every single one of them. This is really important: Learning to program is like practicing a conversation in a new language. You will improve gradually, but only if you practice.
+
+2. If you're stuck with something, please write down your questions (to share later in class) and try to solve the problem. Please ask your group members for support and, conversely, if another student is stuck, please try to help them out, too. This way, we develop a supportive learning environment that benefits everybody. In addition, get used to the Help pages in RStudio and start finding solutions online (discussion forums, online textbooks, etc.). This is really important, too. You will only really know how to do quantitative research and statistical analyses when you are doing your own research and dealing with your own data. At that point, you need to be sufficiently autonomous to solve problems, otherwise you will end up making very slow progress in your PhD.
+
+3. Finally, if you do not complete the handout in class, please complete the handout at home. This is important as we will assume that you know the material covered in this handout. And again, the more you practice the better, so completing these handouts at home is important.
+
+### References for this handout
+
+Many of the examples and data files from our class come from these excellent textbooks:
+
+* Andrews, M. (2021). Doing data science in R. Sage.
+* Crawley, M. J. (2013). The R book. Wiley.
+* Fogarty, B. J. (2019). Quantitative social science data with R. Sage.
+* Winter, B. (2019). Statistics for linguists. An introduction using R. Routledge.
+
+## Task 0: Setting up our environment
+
+You should be able to do all these things, if not - check back on previous week's content as a reminder
+
+1. Create a new script and call it Week 7.
+
+2. Load in the tidyverse library at the top of the script
+
+## Task 1: Chi-squared and Cramer's V
+
+Let's now have a look at running Chi-squared and Cramer's V tests in R. download this week's data moodle. Read titanic.csv into an object called "titanic". It is a list of all the passengers aboard the titanic and their survival outcome.
+
+Can you remember the code you would need to **read the csv** file `TitanicSurvival.csv` and assign it to an object called **titanic**?
+
+::: { .callout-note collapse='true' title='Need a reminder?'}
+
+```{r}
+titanic <- read_csv("titanic.csv")
+```
+
+:::
+
+Once we've read that in, we need to do some wrangling to get the data into a usable format. Below I have given you the code, but can you identify what each part of the code does? Use the `?group_by` notation in the console to get the help pages, or google the functions.
+
+```{r}
+titanic_summary <- titanic |> group_by(survived, passengerClass) |> 
+  summarise(count = n()) |>
+  ungroup() 
+```
+
+Let us view the output - what do we have in this tibble?
+
+```{r}
+titanic_summary
+```
+
+The summary table can be useful to look at or use as a report table.
+
+Make a bar graph to count the numbers of survived and died by class. We will be using `ggplot()` for which it does a lot of the hard work of counting occurrences etc. so if we want a plot with passenger class on the x-axis and the number of people who survived or died in each class, we need to specify this in the code.
+
+As is, the code below won't run because the `aes()` section is empty. We need to specify the x-axis (class) as well as the fill of the bars (survival). Replace the `NA`s with the right variable names
+
+```{r}
+#| eval: false
+
+titanic |> 
+  ggplot(aes(NA, fill = NA)) +
+  geom_bar(position = "dodge")
+```
+
+Now let's see if there is a significant relation between class and survival using Chi-squared: 
+
+What are the two variables we are interested in?
+
+What is the **Dependent** Variable? `r mcq(c("passengerClass", "name", "sex", "age", answer = "survived"))`
+
+What is the **Independent** Variable? `r mcq(c(answer = "passengerClass", "name", "sex", "age", "survived"))`
+
+
+Great job! Now we can use the function `chisq.test` that takes two arguments, `x` and `y` where these are the columns we want to test. We need to use the `dataframe$column` format for this test. Can you complete the code for this?
+
+```{r}
+#| eval: false
+#| error: true
+
+chisq.test(x = , y = )
+
+```
+
+::: { .callout-note collapse='true' title='Need the answer?'}
+
+```{r}
+#| eval: false
+
+chisq.test(x = titanic$passengerClass, y = titanic$survived)
+
+```
+
+:::
+
+The results give the chi-squared value, the number of degrees of freedom, and the p-value. P = 2.2e-16 means p = .0000000000000022. That's highly significant!
+
+That means the observations are divided across the categories in a way that is very unlikely to be due to chance (for this number (P = 2.2e-16), it means there's a 2 in a quadrillion chance that titanic survival was not related to class). In a report, you would write: $\chi^2$(2, 1309) = 127.86, p < .001.
+
+Now, let's compute Cramer's V. First, we need to make sure we have the package lsr. You might need to install this first - I'm sure you remember how. If not, look back at previous worksheets.
+
+```{r}
+
+library(lsr)
+
+```
+
+Then run the test:
+
+```{r eval=FALSE}
+
+cramersV(x = titanic$passengerClass, y = titanic$survived)
+
+```
+
+### Running the analysis for other variables
+
+In our data, we have five variables in total, we have the dependent variable set as survived, but what else can we apply the $\chi^2$ test to? Out of the remaining variables of name, sex, and age, can you pick the one that is suitable for this analysis? That is, it is in the right data format
+
+The suitable variable is: `r mcq(c("name", answer = "sex", "age"))`
+
+Now, using the code we have used above and should be neatly set up in your script, reproduce the steps to test this variable and make inferences about its effect on survival rates.
+
+
+The last message that was relayed from Royal Mail Steamer Titanic was - "Sinking by the head. Have cleared boats and filled them with women and children."
+
+Suppose we are wanting to investigate whether it *really* was "women and children first!" during the sinking of the Titanic. If this is truly what was called out, what might we hypothesise about the survival rates of the passengers based upon their recorded sex? Can you construct a directional hypothesis that includes both the IV, DV, and expected direction?
+
+::: { .callout-note collapse='true' title='My example'}
+
+Male passengers were less likely to survive the sinking of the Titanic than Female passengers.
+
+We have our **IV** - male/female
+
+We have our **DV** -  survival
+
+We have everything here. It is testable with our data, and it clearly states our intentions
+
+:::
+
+* We want to first **visualise** the data, so make a bar plot
+
+* We then want to carry out the **chi squared** test
+
+* Then finally **Cramer's V**
+
+* Then to test that you got everything right, can you fill in the blanks below with the correct information? Round all the values to 2dp **EXCEPT** for p-values, which are reported to 3 (unless it is less than .001 in which case we write "*p* < .001". We do not include the leading zero, so it is .001 not 0.001
+
+```{r}
+#| echo: false
+#| eval: true
+
+chi <- chisq.test(x = titanic$sex, y = titanic$survived)
+
+cramer <- cramersV(x = titanic$sex, y = titanic$survived)
+
+```
+
+To test the hypothesis `r mcq(c(answer = '"Male passengers were less likely to survive the sinking of the Titanic than Female passengers"'))`, an examination of the deaths was tested between the male/female categorisation of the passengers. A `r mcq(c(answer = "significant", "non-significant"))` effect was detected, $\chi^2$(2, 1309) = `r fitb(c(round(chi$statistic, 2)))`, *p* `r mcq(c("=", answer = "<"))` `r fitb(c(".001"))`, V = `r fitb(c(round(cramer, 2)))`.
+
+So what can we say about our hypothesis? Do we think that there may be some credibility to the notion that men stayed behind on the Titanic? Yes, I think we can say with some statistical certainty that the observed number of men who died compared to women upon the Titanic was significantly different enough to suggest  the claims of "Women and Children first!" is credible.
+
+Pause for a moment, and reflect on what you've just done (twice). We had some data, we had an idea that we turned into a hypothesis and from which we conducted a statistical analysis and detected a significant effect on class and sex upon whether Titanic passengers died. No longer do these questions need to keep you awake at night, you can sleep easy.
+
+## Task 2: Repetition, repetition, repetition
+
+This section is far more bare bones, chiefly because all the content has been listed out for you above, we're just applying it to different contexts. 
+
+Read in the csv file named `2023-12-lancashire-stop-and-search_simple.csv`. This data is a simplified version of the data downloaded from [https://data.police.uk/data/](https://data.police.uk/data/) for December 2023 for the Lancashire Constabulary including all three data sets. You can download it yourself with different forces or dates, just know that your values will be different to any I publish. I have then applied the following code to the raw data, just to keep it a bit more simplistic for our purposes. I show you the code for transparency in the accordion below, but if you are using the simple dataset I provide, then you don't need to run the code.
+
+The dataset is the stop and search reports for December 2023, and whether they result in an arrest or not, where we can separate by gender.
+
+::: { .callout-note collapse='true' title='Data Tidying'}
+
+```{r}
+#| eval: false
+
+
+crime <- read_csv("2023-12-lancashire-stop-and-search.csv")
+
+crime |> 
+  select(Outcome, Gender) |> 
+  na.omit() |>  #remove any rows without data present
+  mutate(Outcome = if_else(Outcome == "Arrest", "Arrest", "No Arrest")) |> write_csv("2023-12-lancashire-stop-and-search_simple.csv")
+  
+```
+
+:::
+
+Otherwise we just load in the data
+
+```{r}
+crime <- read_csv("2023-12-lancashire-stop-and-search_simple.csv")
+
+```
+
+1. Create a summary table
+
+```{r}
+#| echo: false
+#| eval: false
+
+crime |> 
+  group_by(Outcome, Gender) |> 
+  summarise(count = n())
+```
+
+
+2. Visualise the differences in a bar plot
+
+```{r}
+#| echo: false
+#| eval: false
+
+crime |> 
+  ggplot(aes(Outcome, fill = Gender)) +
+  geom_bar(position = "dodge")
+```
+
+3. Construct your hypothesis and assert what you think may be an effect here
+
+4. Carry out Chi-squared test and Cramer's V.
+
+```{r}
+#| echo: false
+#| eval: false
+
+
+chisq.test(crime$Outcome, crime$Gender)
+
+cramersV(crime$Outcome, crime$Gender)
+
+
+```
+
+5. Is there a significant effect here? What does this mean for your hypothesis, can you *reject* the null or *fail to reject* the null? How would you write this in a report?
+
+That's all for this worksheet - feel free to continue exploring the crime dataset, download a broader time range? Is there an effect outside of the month of January? What about other police forces? Is one maybe "arrest-heavy"? Caveat, I don't know - I only looked at the dataset I provided.
