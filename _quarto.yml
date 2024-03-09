@@ -28,6 +28,8 @@ website:
       file: Worksheets/Worksheet_wk7.qmd
     - text: Week 8
       file: Worksheets/Worksheet_wk8.qmd
+    - text: Week 9
+      file: Worksheets/Worksheet_wk9.qmd
   sidebar:
     collapse-level: 1
     style: floating
