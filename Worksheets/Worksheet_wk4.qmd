@@ -1,6 +1,7 @@
 ---
 title: "4. Data visualization"
 author: "Matthew Ivory"
+order: 4
 format: html
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: "8. Correlations and t-tests"
 author: "Matthew Ivory"
+order: 8
 format: html
 ---
 

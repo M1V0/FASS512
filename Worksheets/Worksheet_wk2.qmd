@@ -1,6 +1,7 @@
 ---
 title: "2. Data management and data wrangling"
 author: "Matthew Ivory"
+order: 2
 format: html
 ---
 

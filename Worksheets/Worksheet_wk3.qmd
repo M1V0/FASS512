@@ -1,6 +1,7 @@
 ---
 title: "3. Exploratory Data Analysis"
 author: "Matthew Ivory"
+order: 3
 format: html
 ---
 

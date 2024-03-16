@@ -1,6 +1,7 @@
 ---
 title: "6. Probability and distributions"
 author: "Matthew Ivory"
+order: 6
 format: html
 ---
 

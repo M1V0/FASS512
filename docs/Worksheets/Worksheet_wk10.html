@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matthew Ivory">
+
+<title>Statistics for Social Scientists - 10. Multiple linear regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Worksheets/Answers/Worksheet_wk1_Answers.html" rel="next">
+<link href="../Worksheets/Worksheet_wk9.html" rel="prev">
+<link href="../Images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../function.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Statistics for Social Scientists</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../Worksheets/Worksheet_wk1.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Week 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk2.html" rel="" target="">
+ <span class="menu-text">Week 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk3.html" rel="" target="">
+ <span class="menu-text">Week 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk4.html" rel="" target="">
+ <span class="menu-text">Week 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk5.html" rel="" target="">
+ <span class="menu-text">Week 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk6.html" rel="" target="">
+ <span class="menu-text">Week 6</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk7.html" rel="" target="">
+ <span class="menu-text">Week 7</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk8.html" rel="" target="">
+ <span class="menu-text">Week 8</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk9.html" rel="" target="">
+ <span class="menu-text">Week 9</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Worksheets/Worksheet_wk10.html" rel="" target="">
+ <span class="menu-text">Week 10</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk1.html">Worksheets</a></li><li class="breadcrumb-item"><a href="../Worksheets/Worksheet_wk10.html">10. Multiple linear regression</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Worksheets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Introduction to quantitative research methods using R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data management and data wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Exploratory Data Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Live Data Wrangling Walkthrough</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Probability and distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Tests for discrete variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Correlations and t-tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. ANOVA and linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Worksheet_wk10.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">10. Multiple linear regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Answersheets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Answers/Worksheet_wk1_Answers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Introduction to quantitative research methods using R - Answers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Answers/Worksheet_wk2_Answers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data management and data wrangling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Answers/Worksheet_wk3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Exploratory Data Analysis - Answers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Worksheets/Answers/Worksheet_wk4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#references-for-this-handout" id="toc-references-for-this-handout" class="nav-link active" data-scroll-target="#references-for-this-handout">References for this handout</a></li>
+  <li><a href="#task-0-setting-up-our-environment" id="toc-task-0-setting-up-our-environment" class="nav-link" data-scroll-target="#task-0-setting-up-our-environment">Task 0: Setting up our environment</a></li>
+  <li><a href="#the-important-information" id="toc-the-important-information" class="nav-link" data-scroll-target="#the-important-information">The important information</a></li>
+  <li><a href="#task-1-reading-in-our-data" id="toc-task-1-reading-in-our-data" class="nav-link" data-scroll-target="#task-1-reading-in-our-data">Task 1: Reading in our data</a></li>
+  <li><a href="#task-2-data-wrangling" id="toc-task-2-data-wrangling" class="nav-link" data-scroll-target="#task-2-data-wrangling">Task 2: Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#combining-dataframes" id="toc-combining-dataframes" class="nav-link" data-scroll-target="#combining-dataframes">Combining dataframes</a></li>
+  </ul></li>
+  <li><a href="#task-3-mean-centring-variables" id="toc-task-3-mean-centring-variables" class="nav-link" data-scroll-target="#task-3-mean-centring-variables">Task 3: mean centring variables</a></li>
+  <li><a href="#task-4-visualising-the-relationship" id="toc-task-4-visualising-the-relationship" class="nav-link" data-scroll-target="#task-4-visualising-the-relationship">Task 4: Visualising the relationship</a></li>
+  <li><a href="#task-5-running-a-multiple-regression" id="toc-task-5-running-a-multiple-regression" class="nav-link" data-scroll-target="#task-5-running-a-multiple-regression">Task 5: Running a multiple regression</a></li>
+  <li><a href="#task-6-comparing-models" id="toc-task-6-comparing-models" class="nav-link" data-scroll-target="#task-6-comparing-models">Task 6: Comparing Models</a></li>
+  <li><a href="#task-7-assumptions-checking" id="toc-task-7-assumptions-checking" class="nav-link" data-scroll-target="#task-7-assumptions-checking">Task 7: Assumptions Checking</a></li>
+  <li><a href="#task-8-effect-size." id="toc-task-8-effect-size." class="nav-link" data-scroll-target="#task-8-effect-size.">Task 8: Effect size.</a></li>
+  <li><a href="#task-9-the-interpretation-and-writeup" id="toc-task-9-the-interpretation-and-writeup" class="nav-link" data-scroll-target="#task-9-the-interpretation-and-writeup">Task 9: The interpretation and writeup</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/M1V0/FASS512/edit/main/Worksheets/Worksheet_wk10.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/M1V0/FASS512/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">10. Multiple linear regression</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matthew Ivory </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Three important things to remember:</p>
+<ol type="1">
+<li><p>As you complete the handout, please don’t just read the commands, please type every single one of them. This is really important: Learning to program is like practicing a conversation in a new language. You will improve gradually, but only if you practice.</p></li>
+<li><p>If you’re stuck with something, please write down your questions (to share later in class) and try to solve the problem. Please ask your group members for support and, conversely, if another student is stuck, please try to help them out, too. This way, we develop a supportive learning environment that benefits everybody. In addition, get used to the Help pages in RStudio and start finding solutions online (discussion forums, online textbooks, etc.). This is really important, too. You will only really know how to do quantitative research and statistical analyses when you are doing your own research and dealing with your own data. At that point, you need to be sufficiently autonomous to solve problems, otherwise you will end up making very slow progress in your PhD.</p></li>
+<li><p>Finally, if you do not complete the handout in class, please complete the handout at home. This is important as we will assume that you know the material covered in this handout. And again, the more you practice the better, so completing these handouts at home is important.</p></li>
+</ol>
+<section id="references-for-this-handout" class="level3">
+<h3 class="anchored" data-anchor-id="references-for-this-handout">References for this handout</h3>
+<p>Many of the examples and data files from our class come from these excellent textbooks:</p>
+<ul>
+<li>Andrews, M. (2021). Doing data science in R. Sage.</li>
+<li>Crawley, M. J. (2013). The R book. Wiley.</li>
+<li>Fogarty, B. J. (2019). Quantitative social science data with R. Sage.</li>
+<li>Winter, B. (2019). Statistics for linguists. An introduction using R. Routledge.</li>
+<li>The <a href="https://psyteachr.github.io/">Glasgow PsyTeachR materials</a></li>
+</ul>
+</section>
+<section id="task-0-setting-up-our-environment" class="level2">
+<h2 class="anchored" data-anchor-id="task-0-setting-up-our-environment">Task 0: Setting up our environment</h2>
+<ol type="1">
+<li><p>Create a new script and call it Week 10.</p></li>
+<li><p>Load in the tidyverse and the performance library at the top of the script</p></li>
+</ol>
+</section>
+<section id="the-important-information" class="level2">
+<h2 class="anchored" data-anchor-id="the-important-information">The important information</h2>
+<p>This week we are going to explore data from Przybylski and Weinstein (2017)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. They used English adolescents to assess the effect of smartphones on young adult wellbeing.</p>
+<p>The abstract from this paper is as follows</p>
+<p>“Although the time adolescents spend with digital technologies has sparked widespread concerns that their use might be negatively associated with mental well-being, these potential deleterious influences have not been rigorously studied. Using a preregistered plan for analyzing data collected from a representative sample of English adolescents (n = 120,115), we obtained evidence that the links between digital-screen time and mental well-being are described by quadratic functions. Further, our results showed that these links vary as a function of when digital technologies are used (i.e., weekday vs.&nbsp;weekend), suggesting that a full understanding of the impact of these recreational activities will require examining their functionality among other daily pursuits. Overall, the evidence indicated that moderate use of digital technology is not intrinsically harmful and may be advantageous in a connected world. The findings inform recommendations for limiting adolescents’ technology use and provide a template for conducting rigorous investigations into the relations between digital technology and children’s and adolescents’ health.”</p>
+<p>What is really impressive is the size of the sample used, as well as the fact that theymade their data openly available. This is great because we can have a look! In this exercise, we will look at whether the relationship between screen time and well-being is modulated by participants’ (self-reported) gender.</p>
+<p>The dependent measure used in the study was the Warwick-Edinburgh Mental Well-Being Scale (WEMWBS). This is a 14-item scale with 5 response categories, summed together to form a single score ranging from 14-70 - So this is what we are interested in modelling. The reported wellbeing of the adolescents measured on this 14-item scale.</p>
+<p>We will be usin preprocessed data for the ease of carrying out a multiple regression, but you can find the raw data in the reference above.</p>
+<p>The study used multiple measures of screen time, but we will only be looking at smartphone use in these examples, feel free to continue your exploration with other measures too.</p>
+<p>Przybylski and Weinstein looked at multiple measures of screen time, but we will be focusing on smartphone use. They found that decrements in well-being started to appear when respondents reported more than one hour of weekly smartphone use. Our question: Does the negative association between hours of use and well-being (beyond the one-hour point) differ for boys and girls?</p>
+<p>So we want to explore how screen time and gender influences self-reported well-being. We have three variables:</p>
+<ul>
+<li>our DV: well-being which is a <select class="webex-select"><option value="blank"></option><option value="answer">continuous</option><option value="">categorical</option></select></li>
+<li>our first IV: screen time, which is a <select class="webex-select"><option value="blank"></option><option value="answer">continuous</option><option value="">categorical</option></select></li>
+<li>our second IV: gender, which is a <select class="webex-select"><option value="blank"></option><option value="">continuous</option><option value="answer">categorical</option></select></li>
+</ul>
+<p>Based on our previous experiences, this question looks like it should be addressed with a simple regression (to model the effect of screen time on well-being) <strong>AND</strong> a t-test to compare wellbeing scores between the (boy and girl) gender groups. But wait, multiple regression allows us to do this in combination, offering us a stronger, more robust analysis.</p>
+</section>
+<section id="task-1-reading-in-our-data" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-reading-in-our-data">Task 1: Reading in our data</h2>
+<p>Download the three files <code>wk10_wellbeing.csv</code>, <code>wk10_participant_info.csv</code>, and <code>wk10_screen_time.csv</code> and read these into your R environment. Call them <code>wellbeing</code>, <code>pinfo</code>, and <code>screen</code> respectively.</p>
+<p>The wellbeing tibble has information from the WEMWBS questionnaire; screen has information about screen time use on weekends (variables ending with we) and weekdays (variables ending with wk) for four types of activities: using a computer (variables starting with Comph; Q10 on the survey), playing video games (variables starting with Comp; Q9 on the survey), using a smartphone (variables starting with Smart; Q11 on the survey) and watching TV (variables starting with Watch; Q8 on the survey).</p>
+</section>
+<section id="task-2-data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-data-wrangling">Task 2: Data Wrangling</h2>
+<p>Before we can do any analysis, we need to tidy up the data. If we look at <code>wellbeing</code> then we can see that it has participant IDs in <code>Serial</code> and then each column is the response to each question on the WEMWBS scale. We want a single score which is the sum of all scores. This can be done in a number of ways, either using <code>mutate()</code> and <code>select()</code>, or with <code>pivot_longer()</code> and <code>summarise()</code></p>
+<p>Create a new object called <code>wemwbs</code> that has just two columns, serial and wellbeing (the sum score) using one of the above methods</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="method 1">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+method 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wemwbs <span class="ot">&lt;-</span> wellbeing <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">wellbeing =</span> WBOptimf <span class="sc">+</span> WBUseful <span class="sc">+</span> WBRelax <span class="sc">+</span> WBIntp <span class="sc">+</span> WBEnergy <span class="sc">+</span> WBDealpr <span class="sc">+</span> WBThkclr <span class="sc">+</span> WBGoodme <span class="sc">+</span> WBClsep <span class="sc">+</span> WBConfid <span class="sc">+</span> WBMkmind <span class="sc">+</span> WBLoved <span class="sc">+</span> WBIntthg <span class="sc">+</span> WBCheer) <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Serial, wellbeing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="method 2">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+method 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wemwbs <span class="ot">&lt;-</span> wellbeing <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(WBOptimf<span class="sc">:</span>WBCheer)) <span class="sc">|&gt;</span>  <span class="co">#this : allows me to say "use all columns between and including these columns</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Serial) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">wellbeing =</span> <span class="fu">sum</span>(value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Because these steps were taken by the original authors, we can check we got the right numbers by checking against the mean and SD reported originally, 47.52 (SD = 9.55), as well as thinking about the above “The dependent measure used in the study was the Warwick-Edinburgh Mental Well-Being Scale (WEMWBS). This is a 14-item scale with 5 response categories, summed together to form a single score ranging from 14-70” - what range should the data fall within? What if it is above or below this?</p>
+<section id="combining-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="combining-dataframes">Combining dataframes</h3>
+<p>Next we need combine our wellbeing scores with the screen time data. If you look at the screen data, then you’ll see it has data for more than just smartphones, so we need to select the relevant columns before pivoting and joining the data with the wellbeing scores</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> screen <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Serial, <span class="fu">starts_with</span>(<span class="st">"Smart"</span>)) <span class="sc">|&gt;</span>  <span class="co">#what do you think that this does? Use the help or Google to find out what starts_with does for us</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Smart_we<span class="sc">:</span>Smart_wk, <span class="at">values_to =</span> <span class="st">"hours"</span>, <span class="at">names_to =</span> <span class="st">"day"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(wemwbs, <span class="at">by =</span> <span class="fu">join_by</span>(Serial)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">recode</span>(day,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Smart_wk"</span> <span class="ot">=</span> <span class="st">"Weekday"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Smart_we"</span> <span class="ot">=</span> <span class="st">"Weekend"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s visualise the effect of screen time on wellbeing. The graph makes it evident that smartphone use of more than 1 hour per day is associated with increasingly negative well-being.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(day, hours) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_wellbeing =</span> <span class="fu">mean</span>(wellbeing)) <span class="sc">|&gt;</span>  <span class="co"># get a mean for day type and for hours spent</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(hours, mean_wellbeing, <span class="at">linetype =</span> day)) <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'day'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Worksheet_wk10_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We need to tidy up the data slightly further to only look at time spent over 1 hour, as well as get a mean score for each participant for their hourly usage over both weekdaya dn weekend.</p>
+<p>To do this you will need to create a new object called <code>totalhours</code> which is created by having to first <code>filter</code> the data for hours over 1, and then <code>group_by</code> participant, before <code>summarising</code> to get a <code>mean</code> hourly average. You should aim to have the data look like the below (if you run <code>head(totalhours)</code>)</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+   Serial totalhours
+    &lt;dbl&gt;      &lt;dbl&gt;
+1 1000003        2  
+2 1000004        2.5
+3 1000005        3.5
+4 1000006        2  
+5 1000008        2  
+6 1000009        2  </code></pre>
+</div>
+</div>
+<p>Then we need to combine <code>total_hours</code> with the other two datasets using <code>inner_join</code> - we will need to do this twice because we can only combine with one dataframe at a time.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> total_hours <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(wemwbs, <span class="at">by =</span> <span class="fu">join_by</span>(Serial)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(pinfo, <span class="at">by =</span> <span class="fu">join_by</span>(Serial))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="task-3-mean-centring-variables" class="level2">
+<h2 class="anchored" data-anchor-id="task-3-mean-centring-variables">Task 3: mean centring variables</h2>
+<p>When you have continuous variables in a regression, it is often sensible to transform them by mean centering. You mean center a predictor X simply by subtracting the mean (X_centered = X - mean(X)). This has two useful consequences:</p>
+<ul>
+<li><p>the model intercept reflects the prediction for Y at the mean value of the predictor variable, rather than at the zero value of the unscaled variable;</p></li>
+<li><p>if there are interactions in the model, any lower-order effects can be given the same interpretation as they receive in ANOVA (main effects, rather than simple effects).</p></li>
+</ul>
+<p>For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0).</p>
+<ul>
+<li>Use mutate to add a new variable to data: totalhours_c, calculated as a mean-centered version of the tothours predictor</li>
+<li>Use mutate to change gender so that it reads “male” and “female” instead of numbers</li>
+<li>Finally, recode the gender variable as a factor, so that R knows not to treat them as a real numbers. (we can use the code skeleton <code>mutate(x = as.factor(x))</code> to force a continuous variable into a factor)</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">totalhours_c =</span> totalhours <span class="sc">-</span> <span class="fu">mean</span>(totalhours),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">gender =</span> <span class="fu">if_else</span>(gender <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"male"</span>, <span class="st">"female"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">as.factor</span>(gender))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-4-visualising-the-relationship" class="level2">
+<h2 class="anchored" data-anchor-id="task-4-visualising-the-relationship">Task 4: Visualising the relationship</h2>
+<p>Now we have the data in the format that we want, let’s visualise it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(totalhours, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_wellbeing =</span> <span class="fu">mean</span>(wellbeing)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(totalhours, mean_wellbeing, <span class="at">colour =</span> gender)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'totalhours'. You can override using the
+`.groups` argument.
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Worksheet_wk10_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>How can we interpret the above plot? How does it translate to the real world?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="my interpretation">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+my interpretation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For smartphone use over one hour per day, girls show an overall lower well-being score compared to boys. The effect of usage is more pronounced for girls, as shown by the more negative relationship in the slope. The boys’ slope is flatter, suggesting that wellbeing is negatively impacted more in girls as hourly use increases.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="task-5-running-a-multiple-regression" class="level2">
+<h2 class="anchored" data-anchor-id="task-5-running-a-multiple-regression">Task 5: Running a multiple regression</h2>
+<p>Finally, let’s run the model and see whether we find anything significant. Using the <code>data</code> object, create a model to predict wellbeing with two predictors, the centred <code>totalhours</code> and gender.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">*</span> gender, data) <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = wellbeing ~ totalhours_c * gender, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-36.815  -5.695   0.392   6.213  27.305 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             44.86660    0.04474 1002.82   &lt;2e-16 ***
+totalhours_c            -0.81836    0.02473  -33.09   &lt;2e-16 ***
+gendermale               5.13915    0.07104   72.34   &lt;2e-16 ***
+totalhours_c:gendermale  0.47327    0.03926   12.05   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 9.136 on 71145 degrees of freedom
+Multiple R-squared:  0.0938,    Adjusted R-squared:  0.09376 
+F-statistic:  2455 on 3 and 71145 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Great. Let’s extract the meaningful information from the output we have here, as well as understnad what it all means</p>
+<ul>
+<li><p>Is the overall model significant? <select class="webex-select"><option value="blank"></option><option value="answer">yes</option><option value="">no</option></select></p></li>
+<li><p>To 2dp, what is the <span class="math inline">\(R^2\)</span> value? <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.09&quot;,&quot;.09&quot;]"></p></li>
+<li><p>For a unit increase in totalhours_c, how much does wellbeing change (to 2dp)? Wellbeing <select class="webex-select"><option value="blank"></option><option value="">increases</option><option value="answer">decreases</option><option value="">stays the same</option></select> by <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.77&quot;,&quot;.77&quot;]">.</p></li>
+</ul>
+<p>Before the next question, we need to know how to interpret categorical variables. Gender is a categorical variable which means that a “unit increase” is not continuous and instead means the difference between one category and the next. When we run as.factor() above, it automatically chooses a reference level (the first level) because if we look in the model output it shows us “gendermale” which is confusing because what does this mean? gender is the variable name (obviously) and the reference level is whatever is first alphabetically (female is before male, so female is our reference), the output shows us the number between the reference and the other factor level (which is male) - if we revisit the plot with these numbers in mind, we should expect to see that the difference between the two lines is roughly this value. So,</p>
+<ul>
+<li>What is the difference seen in wellbeing scores for boys compared to girls (to 2dp)? <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.14&quot;]"></li>
+</ul>
+</section>
+<section id="task-6-comparing-models" class="level2">
+<h2 class="anchored" data-anchor-id="task-6-comparing-models">Task 6: Comparing Models</h2>
+<p>Simply put, we can check whether the model with an interaction performs better (explains more) with the interaction by using <code>AIC()</code> for comaprisons, as well as using <code>anova(model1, model2)</code> to see whether they are significantly different in their composition.</p>
+<p>Remember from the lectures that the lower AIC value is usually the better model, and for the anova test, we want to see whether the more complex model is significantly different to the less complex. If it is not significantly different (<em>p</em> &gt; .05) then we might choose the simpler model, but if it is significantly different, then we can keep the more complex model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">+</span> gender, <span class="at">data =</span> data) <span class="sc">|&gt;</span> <span class="fu">AIC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 516861.7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">*</span> gender, <span class="at">data =</span> data) <span class="sc">|&gt;</span> <span class="fu">AIC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 516718.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">+</span> gender, <span class="at">data =</span> data), </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">*</span> gender, <span class="at">data =</span> data), <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: wellbeing ~ totalhours_c + gender
+Model 2: wellbeing ~ totalhours_c * gender
+  Res.Df     RSS Df Sum of Sq  Pr(&gt;Chi)    
+1  71146 5950819                           
+2  71145 5938690  1     12129 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Both tests point towards keeping the interaction. It is worth noting that the tests above are not the only possible ways of checking model suitability, there are other criterion methods, and the best thing to do is to use a well-validated and trusted method for validating models. Provided you can cite and justify your decisions, you shouldn’t face any major issues.</p>
+<p>For now, we can be satisfied that the model with the interaction is good - and we can continue.</p>
+</section>
+<section id="task-7-assumptions-checking" class="level2">
+<h2 class="anchored" data-anchor-id="task-7-assumptions-checking">Task 7: Assumptions Checking</h2>
+<p>The assumptions for multiple regression are the same as simple regression but there is one additional assumption, that of multicollinearity, the idea that predictor variables should not be too highly correlated.</p>
+<ol type="1">
+<li>The outcome/DV is a interval/ratio level data</li>
+<li>The predictor variable is interval/ratio or categorical (with two levels)</li>
+<li>All values of the outcome variable are independent (i.e., each score should come from a different participant)</li>
+<li>The predictors have non-zero variance</li>
+<li>The relationship between outcome and predictor is linear</li>
+<li>The residuals should be normally distributed</li>
+<li>There should be homoscedasticity (homogeneity of variance, but for the residuals)</li>
+<li>Multicollinearity: predictor variables should not be too highly correlated</li>
+</ol>
+<p>From the work we’ve done so far we know that assumptions 1 - 4 are met and we can use the functions from the performance package again to check the rest, like we did with the simple linear regression chapter.</p>
+<p>One difference from when we used <code>check_model()</code> previously is that rather than just letting it run all the tests it wants, we’re going to specify which tests, to stop it throwing an error. A word of warning - these assumptions tests will take longer than usual to run, because it’s such a big dataset. The first line of code will run the assumption tests and save it to an object, calling the object name will then display the plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>assumptions <span class="ot">&lt;-</span> <span class="fu">check_model</span>(<span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">*</span> gender, data), </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"vif"</span>, <span class="st">"qq"</span>, <span class="st">"normality"</span>, <span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable `Component` is not in your data frame :/</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>assumptions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Worksheet_wk10_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For assumption 5, linearity, we already know from looking at the scatterplot that the relationship is linear, but the residual plot also confirms this.</p>
+<p>For assumption 6, normality of residuals, again the residuals look good in both plots and this provides an excellent example of why it’s often better to visualise than rely on statistics because if we use check_normality() which calls the Shapiro-Wilk test, it tells us that the residuals are not normal, despite the fact that the plots look almost perfect. And that’s because with large sample sizes, any deviation from perfect normality can be flagged as non-normal.</p>
+<p>For assumption 7, we can plot the assumption using the below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(assumptions<span class="sc">$</span>HOMOGENEITY, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_smooth</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">method =</span> <span class="st">"loess"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">formula =</span> y <span class="sc">~</span> x,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Homogeneity of Variance"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">"Reference line should be flat and horizontal"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sqrt</span>(<span class="st">"|Std. residuals|"</span>)),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Fitted values"</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Worksheet_wk10_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Again like normality, the plot isn’t perfect but it is pretty good and another example of why visualisation is better than running statistical tests as we see the same significant result if we run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_homogeneity</span>(<span class="fu">lm</span>(wellbeing <span class="sc">~</span> totalhours_c <span class="sc">*</span> gender, data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Variances differ between groups (Bartlett Test, p = 0.000).</code></pre>
+</div>
+</div>
+<p>For assumption 8, linearity, again the plot looks fine, and we could also have used the grouped scatterplots above to look at this.</p>
+<p>Finally, for assumption 9, multicollinearity, the plot also indicates no issues but we can also test this statistically using check_collinearity().</p>
+<p>Essentially, this function estimates how much the variance of a coefficient is “inflated” because of linear dependence with other predictors, i.e., that a predictor isn’t actually adding any unique variance to the model, it’s just really strongly related to other predictors. You can read more about this here. Thankfully, VIF is not affected by large samples like the other tests.</p>
+<p>There are various rules of thumb, but most converge on a VIF of above 2 - 2.5 for any one predictor being problematic.</p>
+</section>
+<section id="task-8-effect-size." class="level2">
+<h2 class="anchored" data-anchor-id="task-8-effect-size.">Task 8: Effect size.</h2>
+<p>We report effect sizes the same way that we would for a simple linear regression: <span class="math inline">\(R^2/(1-R^2)\)</span>), which we have to do by hand.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.09377</span> <span class="sc">/</span> (<span class="dv">1</span><span class="fl">-0.09377</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1034726</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-9-the-interpretation-and-writeup" class="level2">
+<h2 class="anchored" data-anchor-id="task-9-the-interpretation-and-writeup">Task 9: The interpretation and writeup</h2>
+<p>Finally, we need to take all our tests and produce a writeup of our findings. The format is similar to last week’s, so look back for help:</p>
+<p>To test whether wellbeing was affected by smartphone use and <select class="webex-select"><option value="blank"></option><option value="">tv use</option><option value="">age</option><option value="answer">gender</option></select>, a multiple linear regression was used with an interaction between smartphone use and gender. The results of the regression indicated that the model significantly predicted wellbeing scores, F(<input class="webex-solveme nospaces" size="1" data-answer="[&quot;3&quot;]">, <input class="webex-solveme nospaces" size="5" data-answer="[&quot;71029&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;2451&quot;]">, <em>p</em> <select class="webex-select"><option value="blank"></option><option value="">&gt;</option><option value="">=</option><option value="answer">&lt;</option></select> <input class="webex-solveme nospaces" size="5" data-answer="[&quot;0.001&quot;,&quot;.001&quot;]">, <span class="math inline">\(R_{adjusted}^2\)</span> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.09&quot;,&quot;.09&quot;]">, <span class="math inline">\(f^2\)</span> = <input class="webex-solveme nospaces" size="3" data-answer="[&quot;0.1&quot;,&quot;.1&quot;]">. Total screen time was a significant negative predictor of well-being scores (<span class="math inline">\(\beta\)</span> = <input class="webex-solveme nospaces" size="5" data-answer="[&quot;-0.77&quot;,&quot;-.77&quot;]">, p &lt; .001, as was gender (<span class="math inline">\(\beta\)</span> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.14&quot;]">, p &lt; .001, with girls having lower well-being scores than boys. Importantly, there was a significant interaction between screen time and gender (<span class="math inline">\(\beta\)</span> = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.45&quot;,&quot;.45&quot;]">, p &lt; .001), smartphone use was more negatively associated with well-being for girls than for boys.</p>
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Przybylski, A. &amp; Weinstein, N. (2017). A Large-Scale Test of the Goldilocks Hypothesis. Psychological Science, 28, 204–215.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Worksheets/Worksheet_wk9.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">9. ANOVA and linear regression</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Worksheets/Answers/Worksheet_wk1_Answers.html" class="pagination-link">
+        <span class="nav-page-text">1. Introduction to quantitative research methods using R - Answers</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Website developed by Matthew Ivory</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/M1V0/FASS512">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://modules.lancaster.ac.uk/course/view.php?id=41149">
+      <i class="bi bi-file-earmark-slides" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

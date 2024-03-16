@@ -1,6 +1,7 @@
 ---
 title: "1. Introduction to quantitative research methods using R"
 author: "Matthew Ivory"
+order: 1
 format: html
 ---
 

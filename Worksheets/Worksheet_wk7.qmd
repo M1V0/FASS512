@@ -1,6 +1,7 @@
 ---
 title: "7. Tests for discrete variables"
 author: "Matthew Ivory"
+order: 7
 format: html
 ---
 
